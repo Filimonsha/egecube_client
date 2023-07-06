@@ -1,0 +1,7 @@
+.activeLink {
+    font-weight: bold;
+}
+
+.inactiveLink {
+    font-weight: normal;
+}

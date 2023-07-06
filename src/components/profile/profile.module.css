@@ -10,18 +10,18 @@
     min-height: 100vh;
 }
 
-.profileContentContainer {
+.profileElementsContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.profileContentContainer {
+.profileElementsContainer {
     width: 100%;
     min-height: 100vh;
 }
 
-.scheduleContainer {
+.contentContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,6 +29,6 @@
     background: #bdbdbd;
 }
 
-.scheduleContainer {
+.contentContainer {
     padding: 20px;
 }

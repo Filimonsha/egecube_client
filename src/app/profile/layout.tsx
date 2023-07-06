@@ -7,9 +7,9 @@ const ProfileLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className={styles.profilePageContainer}>
       <Header />
-      <div className={styles.profileContentContainer}>
+      <div className={styles.profileElementsContainer}>
         <LeftSidebar />
-        {children}
+        <div className={styles.contentContainer}>{children}</div>
       </div>
     </div>
   );

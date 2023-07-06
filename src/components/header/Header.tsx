@@ -1,4 +1,4 @@
-import ExampleText from "@/components/header/ExampleText";
+import LinkToProfile from "@/components/header/LinkToProfile";
 import styles from "./header.module.css";
 import LinkOrJustPic from "@/components/header/LinkOrJustPic";
 
@@ -8,7 +8,7 @@ const Header = () => {
       <div className={styles.headerElement}>
         <LinkOrJustPic />
       </div>
-      <ExampleText />
+      <LinkToProfile />
     </header>
   );
 };
