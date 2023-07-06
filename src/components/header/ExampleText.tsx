@@ -10,7 +10,7 @@ const ExampleText = () => {
   return (
     <div className={styles.headerElement}>
       {pathname === "/" && (
-        <Link href={"/profile"}>перейти в личный кабинет!!</Link>
+        <Link href={"/profile/schedule"}>перейти в личный кабинет!!</Link>
       )}
     </div>
   );
