@@ -1,11 +1,10 @@
-import StandingCat from "@/components/funnyJokes/StandingCat";
 import ScheduleElement from "@/components/profile/schedule/ScheduleElement";
+import CalendarExample from "@/components/profile/schedule/CalendarExample";
 
 const Schedule = () => {
   return (
     <ScheduleElement>
-      <div>instead of calendar</div>
-      <StandingCat />
+      <CalendarExample />
     </ScheduleElement>
   );
 };

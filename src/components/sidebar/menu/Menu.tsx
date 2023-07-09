@@ -21,20 +21,6 @@ const Menu = ({ currentPath, paths, menuElements }: MenuProps) => {
           </MenuItem>
         </SidebarElement>
       ))}
-      {/*<SidebarElement>*/}
-      {/*  <MenuItem currentPath={currentPath} targetPath={""}>*/}
-      {/*    <span>Главная</span>*/}
-      {/*  </MenuItem>*/}
-      {/*</SidebarElement>*/}
-      {/*<SidebarElement>*/}
-      {/*  <span>Домашние работы</span>*/}
-      {/*</SidebarElement>*/}
-      {/*<SidebarElement>*/}
-      {/*  <span>Расписание</span>*/}
-      {/*</SidebarElement>*/}
-      {/*<SidebarElement>*/}
-      {/*  <span>Учебные материалы</span>*/}
-      {/*</SidebarElement>*/}
     </>
   );
 };
