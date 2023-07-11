@@ -1,11 +1,13 @@
 import styles from "@/components/profile/schedule/schedule.module.css";
-import Schedule from "@/components/profile/schedule/Schedule";
-import UpcomingEvent from "@/components/profile/schedule/event/UpcomingEvent";
+import UpcomingEvent from "@/components/profile/schedule/eventBlock/UpcomingEvent";
+import ClassesCalendar from "@/components/profile/schedule/calendar/ClassesCalendar";
+import InfoPanel from "@/components/profile/schedule/infoPanel/InfoPanel";
 
 const ProfileSchedule = () => {
   return (
     <div className={styles.scheduleContainer}>
-      <Schedule />
+      <InfoPanel />
+      <ClassesCalendar />
       <UpcomingEvent />
     </div>
   );

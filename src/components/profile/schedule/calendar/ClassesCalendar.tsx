@@ -3,18 +3,19 @@
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "./calendar_theme.sass";
+import ScheduleElement from "@/components/profile/schedule/ScheduleElement";
 
 const localizer = momentLocalizer(moment);
 
-const CalendarExample = () => (
-  <div>
+const ClassesCalendar = () => (
+  <ScheduleElement>
     <Calendar
       localizer={localizer}
       startAccessor="start"
       endAccessor="end"
       style={{ height: 500 }}
     />
-  </div>
+  </ScheduleElement>
 );
 
-export default CalendarExample;
+export default ClassesCalendar;
