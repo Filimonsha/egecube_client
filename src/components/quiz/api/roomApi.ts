@@ -8,21 +8,27 @@ const baseQuery = fetchBaseQuery({
     }
 })
 
+export type QueueRequest = {
+    userId: number,
+    roomId: number | undefined
+}
+
 export const roomApi = createApi({
     reducerPath: "roomApi",
     baseQuery: baseQuery,
     endpoints: (build) => ({
-        standInQueue: build.query<number, number>({
-            query: (userId) => ({
+        standInQueue: build.query<number, QueueRequest>({
+            query: (query) => ({
                 url: "/rooms",
                 method: "POST",
-                body: userId
+                body: query.userId
             })
         }),
-        getOutOfQueue: build.query<number, number>({
-            query: (roomId) => ({
-                url: `/rooms/${roomId}`,
-                method: "DElETE"
+        getOutOfQueue: build.query<number, QueueRequest>({
+            query: (query) => ({
+                url: `/rooms/${query.roomId}`,
+                method: "DElETE",
+                body: query.userId
             })
         })
     }),
