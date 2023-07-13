@@ -1,9 +1,9 @@
 export interface GameIds {
-    userId: number,
-    roomId: number,
-    gameId: string
+    userId: number | undefined,
+    roomId: number | undefined,
+    gameId: string | undefined
 }
 
 export const initialGameState: GameIds = {
-    userId: null, roomId: null, gameId: null
+    userId: undefined, roomId: undefined, gameId: undefined
 }
