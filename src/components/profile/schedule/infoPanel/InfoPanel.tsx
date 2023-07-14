@@ -1,13 +1,12 @@
 import ScheduleElement from "@/components/profile/schedule/ScheduleElement";
-import TextLabels from "@/components/profile/schedule/infoPanel/textLabels/textLabels";
-
+import TextLabels from "@/components/profile/schedule/infoPanel/textLabels/TextLabels";
 
 const InfoPanel = () => {
-    return (
-        <ScheduleElement>
-            <TextLabels />
-        </ScheduleElement>
-    )
-}
+  return (
+    <ScheduleElement>
+      <TextLabels />
+    </ScheduleElement>
+  );
+};
 
-export default InfoPanel
+export default InfoPanel;
