@@ -1,0 +1,10 @@
+.labelsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.label {
+    margin: 10px;
+}
