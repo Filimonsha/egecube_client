@@ -1,8 +1,8 @@
 enum UserRole {
-  User,
-  Admin,
-  Teacher,
-  Mentor
+  User = "USER",
+  Admin = "ADMIN",
+  Teacher = "TEACHER",
+  Mentor = "MENTOR",
 }
 
 export type User = {
