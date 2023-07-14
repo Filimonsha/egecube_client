@@ -1,9 +1,14 @@
 import React, {useState} from 'react';
 import {useLazyGetOutOfQueueQuery, useLazyStandInQueueQuery} from "@/components/quiz/api/roomApi";
 import {GameIds} from "@/components/quiz/consts";
+import {stopFindGame, tryFindGame} from "@/components/quiz/GameQueue/script";
+import {connectToSocket} from "@/components/quiz/api/websocketApi";
+import {Client} from "stompjs";
 
 const GameQueue = (
-    {state, setState}: { state: GameIds, setState: (state: GameIds) => void }
+    {state, setState, setConnection}: {
+        state: GameIds, setState: (state: GameIds) => void, setConnection: (conn: Client) => void
+    }
 ) => {
     const [tryStandInQueue, {
         data: roomFetched,
@@ -16,31 +21,16 @@ const GameQueue = (
 
     const changeStatus = () => {
         if (waiting) {
-            stopFindGame()
+            stopFindGame(tryGetOutOfQueue, lastFetch, state)
         } else {
-            tryFindGame()
+            tryFindGame(tryStandInQueue, state)
         }
         setWaiting(!waiting)
     }
 
-    const tryFindGame = () => {
-        console.log("Trying to find game")
-        tryStandInQueue({
-            userId: state.userId as number,
-            roomId: undefined
-        })
-    }
-    const stopFindGame = () => {
-        console.log("Exiting room")
-        if (lastFetch != undefined) {
-            tryGetOutOfQueue({
-                userId: state.userId as number,
-                roomId: lastFetch as number
-            })
-        }
-    }
-
     const [waiting, setWaiting] = useState(false)
+    const [wsConnection, setWsConnection] = useState<Client>(connectToSocket)
+
 
 
     if (roomSearch) return <>Searching room...</>
@@ -54,7 +44,13 @@ const GameQueue = (
                     width: 100, height: 50
                 }}
             />
-            <p>{roomFetched}</p>
+            {roomFetched && <p>Room found {roomFetched}</p>}
+            {wsConnection && <p>Websocket connected </p>}
+            {/*{(() => {*/}
+            {/*    if (roomFetched != undefined && wsConnection) {*/}
+            {/*        return <button>Join Game</button>*/}
+            {/*    }*/}
+            {/*})}*/}
         </>
 
     );

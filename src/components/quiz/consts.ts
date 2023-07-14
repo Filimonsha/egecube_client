@@ -1,7 +1,5 @@
 export interface GameIds {
-    userId: number | undefined,
-    roomId: number | undefined,
-    gameId: string | undefined
+    userId: number | undefined, roomId: number | undefined, gameId: string | undefined
 }
 
 export const initialGameState: GameIds = {

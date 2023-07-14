@@ -1,20 +1,34 @@
-const ws_addr = "ws://localhost:8080/quiz-ws"
+import SockJS from "sockjs-client";
+import * as Stomp from "stompjs"
+
+const ws_addr = "http://localhost:8080/quiz-ws"
 const rest_addr = "http://localhost:8080/api/games"
 
-import {Client, Message} from "@stomp/stompjs"
 
-export function connectToSocket(): Client {
-    const stompClient = new Client({
-        brokerURL: ws_addr,
-        debug: (str) => {
-            console.log(str)
-        },
-        reconnectDelay: 5000
-    })
-    stompClient.onConnect = () => {
-        console.log("Connected to game websocket")
-    }
-    stompClient.activate()
+function mySocketFactory() {
+    return new SockJS(ws_addr, );
+}
+
+export function connectToSocket() {
+    const socket = new SockJS(ws_addr)
+    const stompClient = Stomp.over(socket)
+
+    stompClient.connect({}, function (frame: any) {
+        console.log(frame);
+    });
+    // const stompClient = new Client({
+    //     // brokerURL: ws_addr,
+    //     webSocketFactory: mySocketFactory,
+    //     debug: (str) => {
+    //         console.log(str)
+    //     },
+    //     reconnectDelay: 5000
+    // })
+    // stompClient.onConnect = () => {
+    //     console.log("Connected to game websocket")
+    // }
+    // stompClient.activate()
+    // return stompClient
     return stompClient
 }
 
