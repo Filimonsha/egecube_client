@@ -1,5 +1,5 @@
 import baseBackendApi from "@/redux/api/baseQuery";
-import { Participant } from "@/types/participant";
+import { Participant } from "@/types/backend/participant";
 
 const participantApi = baseBackendApi.injectEndpoints({
   endpoints: (build) => ({
