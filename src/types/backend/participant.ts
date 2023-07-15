@@ -1,5 +1,5 @@
-import { Subject } from "@/types/subject";
-import Course from "@/types/course";
+import { Subject } from "@/types/backend/subject";
+import Course from "@/types/backend/course";
 
 enum ParticipantRole {}
 

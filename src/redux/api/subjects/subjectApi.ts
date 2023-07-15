@@ -1,5 +1,5 @@
 import baseBackendApi from "@/redux/api/baseQuery";
-import { Subject } from "@/types/subject";
+import { Subject } from "@/types/backend/subject";
 
 const subjectApi = baseBackendApi.injectEndpoints({
   endpoints: (build) => ({

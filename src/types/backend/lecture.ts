@@ -1,4 +1,4 @@
-type Lecture = {
+export type Lecture = {
   id: number;
   name: string;
   description: string;

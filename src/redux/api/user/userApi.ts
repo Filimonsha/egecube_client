@@ -1,4 +1,4 @@
-import { User } from "@/types/user";
+import { User } from "@/types/backend/user";
 import baseBackendApi from "@/redux/api/baseQuery";
 
 const userApi = baseBackendApi.injectEndpoints({
