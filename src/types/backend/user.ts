@@ -14,3 +14,11 @@ export type User = {
   accountSuspended: boolean;
   userRole: UserRole;
 };
+
+export type UserBase = {
+  userMail: string;
+  userPhone: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+};
