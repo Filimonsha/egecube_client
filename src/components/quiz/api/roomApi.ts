@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {rest_addr} from "@/components/quiz/api/addresses";
-import {RoomPlayers} from "@/components/quiz/types";
+import {GameState} from "@/components/quiz/types";
 
 
 const baseQuery = fetchBaseQuery({
@@ -20,14 +20,14 @@ export const roomApi = createApi({
     reducerPath: "roomApi",
     baseQuery,
     endpoints: (build) => ({
-            standInQueue: build.query<RoomPlayers, QueueRequest>({
-            query: (query) => ({
+        standInQueue: build.query<GameState, number>({
+            query: (userId) => ({
                 url: "/rooms",
                 method: "POST",
-                body: query.userId
+                body: userId
             })
         }),
-        getOutOfQueue: build.query<RoomPlayers, QueueRequest>({
+        getOutOfQueue: build.query<GameState, QueueRequest>({
             query: (query) => ({
                 url: `/rooms/${query.roomId}`,
                 method: "DElETE",

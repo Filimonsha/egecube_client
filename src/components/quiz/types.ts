@@ -15,15 +15,6 @@ export type GameAction = {
     content: string
 }
 
-export type GameState = {
-    appendedChatId: number,
-    participants: Array<number>,
-    gameField: Array<Array<Pair<number, boolean>>>,
-    postedAnswers: Array<Pair<GameAnswer, boolean>>,
-    startApproved: Array<number>,
-    started: boolean
-}
-
 export type RoomPlayers = {
     roomNum: number
     playerNum: number,
@@ -33,9 +24,29 @@ export type RoomPlayers = {
 }
 
 export type StartRequest = {
-    gameId: number,
-    userId: number,
-    roomId: number
+    gameId: string,
+    userId: number
+}
+
+export interface GameIds {
+    userId: number | undefined,
+    gameId: string | undefined
+}
+
+export interface Participants {
+    all: Array<number>,
+    active: Array<number>
+}
+
+export interface GameState  {
+    id: string,
+    roomId: number,
+    appendedChatId: number,
+    participants: Array<number>,
+    gameField: Array<Array<Pair<number, boolean>>>,
+    postedAnswers: Array<Pair<GameAnswer, boolean>>,
+    startApproved: Array<number>,
+    started: boolean
 }
 
 type Pair<A, B> = {

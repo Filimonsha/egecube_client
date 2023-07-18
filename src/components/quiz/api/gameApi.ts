@@ -11,7 +11,7 @@ const baseQuery = fetchBaseQuery({
     }
 })
 
-const gameApi = createApi({
+export const gameApi = createApi({
     reducerPath: "gameApi",
     baseQuery,
     endpoints: (build) => ({
@@ -25,10 +25,7 @@ const gameApi = createApi({
             query: (request) => ({
                 url: `/${request.gameId}`,
                 method: "POST",
-                body: {
-                    userId: request.userId,
-                    roomId: request.roomId
-                }
+                body: request.userId
             })
         })
     })

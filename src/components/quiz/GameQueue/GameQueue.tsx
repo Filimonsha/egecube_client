@@ -1,21 +1,21 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useLazyGetOutOfQueueQuery, useLazyStandInQueueQuery} from "@/components/quiz/api/roomApi";
-import {GameIds, Participants} from "@/components/quiz/consts";
 import {stopFindGame, tryFindGame} from "@/components/quiz/GameQueue/script";
 import {Client, Message, Subscription} from "stompjs";
 import {channel_addr} from "@/components/quiz/api/addresses";
-import {RoomPlayers} from "@/components/quiz/types";
+import {GameIds, GameState} from "@/components/quiz/types";
+import {useLazyStartGameQuery} from "@/components/quiz/api/gameApi";
 
 interface GameQueueProps {
     state: GameIds,
     setState: (state: GameIds) => void,
     wsConnection: Client,
-    participants: Participants,
-    setParticipants: (state: Participants) => void
+    gameState: GameState | undefined
+    setGameState: (state: GameState | undefined) => void
 }
 
 const GameQueue = (
-    {state, setState, wsConnection, participants, setParticipants}: GameQueueProps
+    {state, setState, wsConnection, gameState, setGameState}: GameQueueProps
 ) => {
     const [tryStandInQueue, {
         data: roomFetched,
@@ -25,28 +25,24 @@ const GameQueue = (
     const [tryGetOutOfQueue, {
         isFetching: roomLeaving
     }] = useLazyGetOutOfQueueQuery()
+    const [tryStartGame] = useLazyStartGameQuery()
 
     const [waiting, setWaiting] = useState(false)
     const roomSubscription = useRef<Subscription | undefined>(undefined)
 
     useEffect(() => {
         if (lastFetch !== undefined) {
-            setState({...state, gameId: lastFetch.gameId, roomId: lastFetch.roomNum})
-            setParticipants({...participants, all: lastFetch.playerIds})
+            setState({...state, gameId: lastFetch.id})
+            setGameState(lastFetch)
             roomSubscription.current?.unsubscribe()
             roomSubscription.current = wsConnection.subscribe(
-                `${channel_addr}/rooms/${lastFetch.roomNum}`,
+                `${channel_addr}/rooms/${lastFetch.roomId}`,
                 (message: Message) => {
-                    const roomPlayers = JSON.parse(message.body) as RoomPlayers
+                    const roomPlayers = JSON.parse(message.body) as GameState
                     console.log(roomPlayers)
                     setState({
                         ...state,
-                        gameId: roomPlayers.gameId,
-                        roomId: roomPlayers.roomNum,
-                    })
-                    setParticipants({
-                        ...participants,
-                        all: roomPlayers.playerIds
+                        gameId: roomPlayers.id
                     })
                 }
             )
@@ -55,8 +51,8 @@ const GameQueue = (
 
     useEffect(() => {
         if (lastFetch !== undefined) {
-            setState({...state, gameId: undefined, roomId: undefined})
-            setParticipants({all: [], active: []})
+            setState({...state, gameId: undefined})
+            setGameState(undefined)
             roomSubscription.current?.unsubscribe()
         }
     }, [roomLeaving])
@@ -71,8 +67,11 @@ const GameQueue = (
     }
 
     const handleJoin = () => {
-        console.log("trying to start game")
-
+        console.log("Trying to start game")
+        tryStartGame({
+            userId: state.userId as number,
+            gameId: state.gameId as string
+        })
     }
 
     if (roomSearch) return <>Searching room...</>
@@ -88,12 +87,16 @@ const GameQueue = (
             />
             {roomFetched && wsConnection.connected &&
                 <>
-                    <p>Room found {state.roomId}</p>
+                    <p>Room found {lastFetch?.roomId}</p>
                     <p>Players:</p>
-                    {participants.all?.map(player =>
+                    {gameState?.participants.map(player =>
                         <p key={player}>{player}</p>
                     )}
-                    <p>Game found {state.gameId}</p>
+                    <p>Approved by</p>
+                    {gameState?.startApproved.map(player =>
+                        <p key={player}>{player}</p>
+                    )}
+                    <p>Game found {gameState?.id}</p>
                     <button onClick={handleJoin}>Join</button>
                 </>
                 || roomSearch &&
