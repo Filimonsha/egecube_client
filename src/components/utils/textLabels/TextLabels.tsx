@@ -1,8 +1,7 @@
 "use client";
 
 import styles from "./labels.module.css";
-import TextLabel from "@/components/profile/schedule/infoPanel/textLabels/labels/TextLabel";
-import { useEffect } from "react";
+import TextLabel from "@/components/utils/textLabels/labels/TextLabel";
 import { useGetSubjectsQuery } from "@/redux/api/subjects/subjectApi";
 import { Subject } from "@/types/backend/subject";
 import { useGetParticipantByUserIdQuery } from "@/redux/api/participant/participantApi";
@@ -33,10 +32,6 @@ const TextLabels = () => {
       );
     return str;
   };
-
-  useEffect(() => {
-    // console.log(participant);
-  }, [participant]);
 
   return (
     <div className={styles.labelsContainer}>

@@ -5,6 +5,12 @@
 }
 
 .pageElementRow {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pageElementRow {
     width: 100%;
     margin: 10px;
     text-align: center;
