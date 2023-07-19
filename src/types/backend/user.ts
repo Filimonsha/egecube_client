@@ -22,3 +22,8 @@ export type UserBase = {
   lastName: string;
   password: string;
 };
+
+export type UserCredentials = {
+  userMail: string;
+  password: string;
+};

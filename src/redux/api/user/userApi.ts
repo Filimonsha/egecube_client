@@ -16,4 +16,4 @@ const userApi = baseBackendApi.injectEndpoints({
   }),
 });
 
-export const { useGetUserByIdQuery, useCreateUserQuery } = userApi;
+export const { useGetUserByIdQuery, useCreateUserMutation } = userApi;
