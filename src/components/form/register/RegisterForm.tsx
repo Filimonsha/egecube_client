@@ -3,54 +3,51 @@
 import styles from "@/components/form/form.module.css";
 import FormElementInput from "@/components/form/util/FormElementInput";
 import FormElementButton from "@/components/form/util/FormElementButton";
-import {SyntheticEvent, useEffect} from "react";
-import {useCreateUserMutation} from "@/redux/api/user/userApi";
+import { SyntheticEvent, useEffect } from "react";
+import { useCreateUserMutation } from "@/redux/api/user/userApi";
 import useRegFormInput from "@/hooks/form/useRegFormInput";
 
 const RegisterForm = () => {
-  const [createUser, {data}] = useCreateUserMutation()
+  const [createUser, { data }] = useCreateUserMutation();
   const { userInfo, setters } = useRegFormInput();
 
   useEffect(() => {
-    console.log(data)
-  }, [data])
+    console.log(data);
+  }, [data]);
 
-  const submitHandler = async (
-    event: SyntheticEvent,
-  ) => {
+  const submitHandler = async (event: SyntheticEvent) => {
     event.preventDefault();
 
     await createUser(userInfo).unwrap();
   };
 
+  const inputElements = [
+    {
+      title: "Имя",
+      type: "text",
+      valueGetter: setters.setFirstName,
+    },
+    { title: "Фамилия", type: "text", valueGetter: setters.setLastName },
+    { title: "Телефон", type: "text", valueGetter: setters.setUserPhone },
+    {
+      title: "Электронная почта",
+      type: "text",
+      valueGetter: setters.setUserMail,
+    },
+    { title: "Пароль", type: "password", valueGetter: setters.setPassword },
+  ];
+
   return (
     <div className={styles.formContainer}>
       <form className={styles.formContent} onSubmit={submitHandler}>
-        <FormElementInput
-          title={"Имя"}
-          type={"text"}
-          valueGetter={setters.setFirstName}
-        />
-        <FormElementInput
-          title={"Фамилия"}
-          type={"text"}
-          valueGetter={setters.setLastName}
-        />
-        <FormElementInput
-          title={"Телефон"}
-          type={"text"}
-          valueGetter={setters.setUserPhone}
-        />
-        <FormElementInput
-          title={"Электронная почта"}
-          type={"text"}
-          valueGetter={setters.setUserMail}
-        />
-        <FormElementInput
-          title={"Пароль"}
-          type={"password"}
-          valueGetter={setters.setPassword}
-        />
+        {inputElements.map((element) => (
+          <FormElementInput
+            key={element.title}
+            title={element.title}
+            type={element.type}
+            valueGetter={element.valueGetter}
+          />
+        ))}
         <FormElementButton title={"Зарегистрироваться"} id={styles["reg"]} />
       </form>
     </div>

@@ -6,7 +6,7 @@ import FormElementButton from "@/components/form/util/FormElementButton";
 import FormElementLink from "@/components/form/util/FormElementLink";
 import { FormEventHandler, SyntheticEvent } from "react";
 import useAuthFormInput from "@/hooks/form/useAuthFormInput";
-import {REGISTER_ROUTE} from "@/const/routes";
+import { REGISTER_ROUTE } from "@/const/routes";
 
 const LoginForm = () => {
   const { userCreds, setters } = useAuthFormInput();
@@ -18,19 +18,26 @@ const LoginForm = () => {
     console.log(userCreds);
   };
 
+  const inputElements = [
+    {
+      title: "Электронная почта",
+      type: "text",
+      valueGetter: setters.setUserMail,
+    },
+    { title: "Пароль", type: "password", valueGetter: setters.setPassword },
+  ];
+
   return (
     <div className={styles.formContainer}>
       <form className={styles.formContent} onSubmit={submitHandler}>
-        <FormElementInput
-          title={"Электронная почта"}
-          type={"text"}
-          valueGetter={setters.setUserMail}
-        />
-        <FormElementInput
-          title={"Пароль"}
-          type={"password"}
-          valueGetter={setters.setPassword}
-        />
+        {inputElements.map((element) => (
+          <FormElementInput
+            key={element.title}
+            title={element.title}
+            type={element.type}
+            valueGetter={element.valueGetter}
+          />
+        ))}
         <FormElementButton title={"Войти"} />
         <FormElementLink
           title={"Зарегистрироваться"}

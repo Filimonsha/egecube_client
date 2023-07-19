@@ -1,13 +1,13 @@
 import { FC, FormEvent } from "react";
 import styles from "../form.module.css";
 
-interface FormElementInputProps {
+interface IFormElementInputProps {
   title: string;
   type: string;
   valueGetter: (string) => void;
 }
 
-const FormElementInput: FC<FormElementInputProps> = ({
+const FormElementInput: FC<IFormElementInputProps> = ({
   title,
   type,
   valueGetter,
