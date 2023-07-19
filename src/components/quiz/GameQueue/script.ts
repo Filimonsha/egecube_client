@@ -1,5 +1,5 @@
 import {QueueRequest} from "@/components/quiz/api/roomApi";
-import {GameIds, GameState} from "@/components/quiz/types";
+import {GameIds, GameState} from "@/components/quiz/types/types";
 
 export const tryFindGame = (
     tryStandInQueue: (val: number) => void, state: GameIds

@@ -3,7 +3,7 @@ import {useLazyGetOutOfQueueQuery, useLazyStandInQueueQuery} from "@/components/
 import {stopFindGame, tryFindGame} from "@/components/quiz/GameQueue/script";
 import {Client, Message, Subscription} from "stompjs";
 import {channel_addr} from "@/components/quiz/api/addresses";
-import {GameIds, GameState} from "@/components/quiz/types";
+import {GameIds, GameState} from "@/components/quiz/types/types";
 import {useLazyStartGameQuery} from "@/components/quiz/api/gameApi";
 
 interface GameQueueProps {

@@ -1,7 +1,7 @@
 import {fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 import {rest_addr} from "@/components/quiz/api/addresses";
 import {createApi} from "@reduxjs/toolkit/query/react";
-import {GameState, StartRequest} from "@/components/quiz/types";
+import {GameAction, GameActionRequest, GameState, StartRequest} from "@/components/quiz/types/types";
 
 const baseQuery = fetchBaseQuery({
     baseUrl: rest_addr,
@@ -27,11 +27,19 @@ export const gameApi = createApi({
                 method: "POST",
                 body: request.userId
             })
+        }),
+        postAnswer: build.query<GameState, GameActionRequest>({
+            query: (request) => ({
+                url: `/${request.gameId}`,
+                method: "POST",
+                body: request.action
+            })
         })
     })
 })
 
 export const {
     useLazyGetGameStateQuery,
-    useLazyStartGameQuery
+    useLazyStartGameQuery,
+    useLazyPostAnswerQuery
 } = gameApi

@@ -5,8 +5,8 @@ import GameQueue from "@/components/quiz/GameQueue/GameQueue";
 import {initialGameIdsState} from "@/components/quiz/consts";
 import {Client, Message, Subscription} from "stompjs";
 import {channel_addr} from "@/components/quiz/api/addresses";
-import {GameIds, GameState} from "@/components/quiz/types";
 import GameField from "@/components/quiz/GameField/GameField";
+import {GameIds, GameState} from "@/components/quiz/types/gameStates";
 
 
 const Quiz = (
@@ -49,7 +49,7 @@ const Quiz = (
         }}>
             <p>Game</p>
             <p>{gameState?.id}</p>
-            <GameField gameState={gameState} setGameState={setGameState}/>
+            <GameField gameState={gameState} setGameState={setGameState} userState={gameIdsState}/>
         </div>
     );
 };
