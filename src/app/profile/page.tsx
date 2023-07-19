@@ -1,7 +1,7 @@
 import StandingCat from "@/components/funnyJokes/StandingCat";
 
-const Profile = () => {
+const ProfilePage = () => {
   return <StandingCat />;
 };
 
-export default Profile;
+export default ProfilePage;

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FC } from "react";
-import styles from "../../form.module.css";
+import styles from "../form.module.css";
 
 interface FormElementLinkProps {
   title: string;

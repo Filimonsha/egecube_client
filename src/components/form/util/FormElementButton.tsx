@@ -1,5 +1,5 @@
 import { FC } from "react";
-import styles from "../../form.module.css";
+import styles from "../form.module.css";
 
 interface FormElementButtonProps {
   title: string;

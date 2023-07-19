@@ -1,5 +1,5 @@
 import { FC, FormEvent } from "react";
-import styles from "../../form.module.css";
+import styles from "../form.module.css";
 
 interface FormElementInputProps {
   title: string;

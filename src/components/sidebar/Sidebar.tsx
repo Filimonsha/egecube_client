@@ -17,7 +17,7 @@ const menuElements = [
   <span>Учебные материалы</span>,
 ];
 
-const LeftSidebar = () => {
+const Sidebar = () => {
   const currentPath = usePathname();
 
   return (
@@ -31,4 +31,4 @@ const LeftSidebar = () => {
   );
 };
 
-export default LeftSidebar;
+export default Sidebar;

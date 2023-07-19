@@ -1,9 +1,9 @@
 "use client";
 
-import FormElementInput from "@/components/form/login/util/FormElementInput";
+import FormElementInput from "@/components/form/util/FormElementInput";
 import styles from "../form.module.css";
-import FormElementButton from "@/components/form/login/util/FormElementButton";
-import FormElementLink from "@/components/form/login/util/FormElementLink";
+import FormElementButton from "@/components/form/util/FormElementButton";
+import FormElementLink from "@/components/form/util/FormElementLink";
 import { FormEventHandler, SyntheticEvent } from "react";
 import useAuthFormInput from "@/hooks/form/useAuthFormInput";
 

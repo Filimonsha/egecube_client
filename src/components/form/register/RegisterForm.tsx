@@ -1,8 +1,8 @@
 "use client";
 
 import styles from "@/components/form/form.module.css";
-import FormElementInput from "@/components/form/login/util/FormElementInput";
-import FormElementButton from "@/components/form/login/util/FormElementButton";
+import FormElementInput from "@/components/form/util/FormElementInput";
+import FormElementButton from "@/components/form/util/FormElementButton";
 import {SyntheticEvent, useEffect} from "react";
 import {useCreateUserMutation} from "@/redux/api/user/userApi";
 import useRegFormInput from "@/hooks/form/useRegFormInput";

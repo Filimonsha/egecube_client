@@ -1,7 +1,7 @@
 import ScheduleElement from "@/components/profile/schedule/ScheduleElement";
 import ClassesCalendar from "@/components/profile/schedule/calendar/ClassesCalendar";
 
-const ClassesCalendarrr = () => {
+const Calendar = () => {
   return (
     <ScheduleElement>
       <ClassesCalendar />
@@ -9,4 +9,4 @@ const ClassesCalendarrr = () => {
   );
 };
 
-export default ClassesCalendarrr;
+export default Calendar;
