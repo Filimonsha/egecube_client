@@ -12,7 +12,7 @@ interface MenuItemProps {
   targetPath: string;
 }
 
-const MenuItem = ({ children, currentPath, targetPath }: MenuItemProps) => {
+const Item = ({ children, currentPath, targetPath }: MenuItemProps) => {
   return (
     <Link
       href={targetPath}
@@ -23,4 +23,4 @@ const MenuItem = ({ children, currentPath, targetPath }: MenuItemProps) => {
   );
 };
 
-export default MenuItem;
+export default Item;

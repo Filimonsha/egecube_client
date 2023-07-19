@@ -2,7 +2,7 @@ import styles from "@/components/profile/schedule/schedule.module.css";
 import UpcomingEvent from "@/components/profile/schedule/eventBlock/UpcomingEvent";
 import ClassesCalendar from "@/components/profile/schedule/calendar/ClassesCalendar";
 import InfoPanel from "@/components/profile/schedule/infoPanel/InfoPanel";
-import ScheduleElement from "@/components/profile/schedule/ScheduleElement";
+import ElementContainer from "@/components/profile/schedule/ElementContainer";
 
 const layoutElements = [
     <InfoPanel />,
@@ -14,9 +14,9 @@ const Schedule = () => {
   return (
     <div className={styles.scheduleContainer}>
         {layoutElements.map((element) =>
-            <ScheduleElement>
+            <ElementContainer>
                 {element}
-            </ScheduleElement>
+            </ElementContainer>
         )}
     </div>
   );

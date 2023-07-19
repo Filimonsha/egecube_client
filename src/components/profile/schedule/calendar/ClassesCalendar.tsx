@@ -3,7 +3,7 @@
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "./calendar_theme.sass";
-import ScheduleElement from "@/components/profile/schedule/ScheduleElement";
+import ElementContainer from "@/components/profile/schedule/ElementContainer";
 import { useGetAvailableLecturesByListenerIdQuery } from "@/redux/api/lecture/lectureApi";
 import { useEffect, useState } from "react";
 import { Lecture } from "@/types/backend/lecture";
@@ -31,7 +31,7 @@ const ClassesCalendar = () => {
   }, [data]);
 
   return (
-    <ScheduleElement>
+    <ElementContainer>
       <Calendar
         localizer={localizer}
         startAccessor="start"
@@ -39,7 +39,7 @@ const ClassesCalendar = () => {
         events={isLoading || isError ? [] : events}
         style={{ height: 500 }}
       />
-    </ScheduleElement>
+    </ElementContainer>
   );
 };
 

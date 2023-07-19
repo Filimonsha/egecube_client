@@ -6,6 +6,7 @@ import FormElementButton from "@/components/form/util/FormElementButton";
 import FormElementLink from "@/components/form/util/FormElementLink";
 import { FormEventHandler, SyntheticEvent } from "react";
 import useAuthFormInput from "@/hooks/form/useAuthFormInput";
+import {REGISTER_ROUTE} from "@/const/routes";
 
 const LoginForm = () => {
   const { userCreds, setters } = useAuthFormInput();
@@ -33,7 +34,7 @@ const LoginForm = () => {
         <FormElementButton title={"Войти"} />
         <FormElementLink
           title={"Зарегистрироваться"}
-          url={"/register"}
+          url={REGISTER_ROUTE}
           id={styles["reg"]}
         />
       </form>

@@ -1,5 +1,5 @@
-import SidebarElement from "@/components/sidebar/SidebarElement";
-import MenuItem from "@/components/sidebar/menu/MenuItem";
+import ElementContainer from "@/components/sidebar/ElementContainer";
+import Item from "@/components/sidebar/menu/Item";
 import React from "react";
 import Error from "next/error";
 
@@ -15,11 +15,11 @@ const Menu = ({ currentPath, paths, menuElements }: MenuProps) => {
   return (
     <>
       {paths.map((path, index) => (
-        <SidebarElement key={index}>
-          <MenuItem currentPath={currentPath} targetPath={path}>
+        <ElementContainer key={index}>
+          <Item currentPath={currentPath} targetPath={path}>
             {menuElements[index]}
-          </MenuItem>
-        </SidebarElement>
+          </Item>
+        </ElementContainer>
       ))}
     </>
   );

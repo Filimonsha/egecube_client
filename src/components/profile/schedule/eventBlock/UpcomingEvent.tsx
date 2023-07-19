@@ -1,10 +1,10 @@
-import ScheduleElement from "@/components/profile/schedule/ScheduleElement";
+import ElementContainer from "@/components/profile/schedule/ElementContainer";
 
 const UpcomingEvent = () => {
   return (
-    <ScheduleElement>
+    <ElementContainer>
       <span>Upcoming event!!!</span>
-    </ScheduleElement>
+    </ElementContainer>
   );
 };
 

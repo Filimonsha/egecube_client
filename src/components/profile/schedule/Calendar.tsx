@@ -1,11 +1,11 @@
-import ScheduleElement from "@/components/profile/schedule/ScheduleElement";
+import ElementContainer from "@/components/profile/schedule/ElementContainer";
 import ClassesCalendar from "@/components/profile/schedule/calendar/ClassesCalendar";
 
 const Calendar = () => {
   return (
-    <ScheduleElement>
+    <ElementContainer>
       <ClassesCalendar />
-    </ScheduleElement>
+    </ElementContainer>
   );
 };
 

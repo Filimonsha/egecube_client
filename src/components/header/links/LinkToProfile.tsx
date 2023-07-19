@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { selectUserBaseState } from "@/redux/selector/selectors";
 import { UserBase } from "@/types/backend/user";
 import { useEffect } from "react";
+import {LOGIN_ROUTE, MAIN_ROUTE, PROFILE_ROUTE} from "@/const/routes";
 
 const LinkToProfile = () => {
   const pathname = usePathname();
@@ -21,15 +22,12 @@ const LinkToProfile = () => {
 
   return (
     <div className={styles.headerElement}>
-      {user === null
-        ? pathname === "/" && <Link href={"/login"}>Войти</Link>
-        : pathname === "/" && (
-            <Link href={"/profile"}>Перейти в личный кабинет</Link>
+      {!user
+        ? pathname === MAIN_ROUTE && <Link href={LOGIN_ROUTE}>Войти</Link>
+        : pathname === MAIN_ROUTE && (
+            <Link href={PROFILE_ROUTE}>Перейти в личный кабинет</Link>
           )}
     </div>
-    // <div className={styles.headerElement}>
-    //   {pathname === "/" && <Link href={"/profile"}>Войти</Link>}
-    // </div>
   );
 };
 
