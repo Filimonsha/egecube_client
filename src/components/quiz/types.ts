@@ -43,7 +43,7 @@ export interface GameState  {
     roomId: number,
     appendedChatId: number,
     participants: Array<number>,
-    gameField: Array<Array<Pair<number, boolean>>>,
+    gameField: Array<Array<Pair<string, boolean>>>,
     postedAnswers: Array<Pair<GameAnswer, boolean>>,
     startApproved: Array<number>,
     started: boolean

@@ -4,7 +4,7 @@ const GameBorder = ({children}: {children: ReactNode}) => {
     return (
         <div style={{
                 margin: 15,
-                maxWidth: 30 + "vh",
+                padding: 30,
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",

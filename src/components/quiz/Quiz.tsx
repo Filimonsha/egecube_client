@@ -6,6 +6,7 @@ import {initialGameIdsState} from "@/components/quiz/consts";
 import {Client, Message, Subscription} from "stompjs";
 import {channel_addr} from "@/components/quiz/api/addresses";
 import {GameIds, GameState} from "@/components/quiz/types";
+import GameField from "@/components/quiz/GameField/GameField";
 
 
 const Quiz = (
@@ -21,7 +22,6 @@ const Quiz = (
             gameSubscription.current = wsConnection.subscribe(
                 `${channel_addr}/${gameIdsState.gameId}`,
                 (message: Message) => {
-                    console.log("trying to update state from game subscription")
                     const gameState = JSON.parse(message.body) as GameState
                     setGameState(gameState)
                     console.log(gameState)
@@ -48,7 +48,8 @@ const Quiz = (
             padding: 15
         }}>
             <p>Game</p>
-            <p>{gameIdsState.gameId}</p>
+            <p>{gameState?.id}</p>
+            <GameField gameState={gameState} setGameState={setGameState}/>
         </div>
     );
 };

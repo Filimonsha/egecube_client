@@ -66,11 +66,11 @@ const GameQueue = (
         setWaiting(!waiting)
     }
 
-    const handleJoin = () => {
+    const handleJoinClick = () => {
         console.log("Trying to start game")
         tryStartGame({
             userId: state.userId as number,
-            gameId: state.gameId as string
+            gameId: gameState?.id as string
         })
     }
 
@@ -97,7 +97,7 @@ const GameQueue = (
                         <p key={player}>{player}</p>
                     )}
                     <p>Game found {gameState?.id}</p>
-                    <button onClick={handleJoin}>Join</button>
+                    <button onClick={handleJoinClick}>Join</button>
                 </>
                 || roomSearch &&
                 <p>Searching for room...</p>
