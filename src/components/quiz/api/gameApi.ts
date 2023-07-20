@@ -1,7 +1,9 @@
 import {fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
-import {rest_addr} from "@/components/quiz/api/addresses";
+import {game_actions, rest_addr} from "@/components/quiz/api/addresses";
 import {createApi} from "@reduxjs/toolkit/query/react";
-import {GameAction, GameActionRequest, GameState, StartRequest} from "@/components/quiz/types/types";
+import {StartRequest} from "@/components/quiz/types/types";
+import {GameState} from "@/components/quiz/types/gameStates";
+import {GameActionRequest} from "@/components/quiz/types/gameActions";
 
 const baseQuery = fetchBaseQuery({
     baseUrl: rest_addr,
@@ -28,9 +30,9 @@ export const gameApi = createApi({
                 body: request.userId
             })
         }),
-        postAnswer: build.query<GameState, GameActionRequest>({
+        postAction: build.query<GameState, GameActionRequest>({
             query: (request) => ({
-                url: `/${request.gameId}`,
+                url: `/${request.gameId}/${game_actions}`,
                 method: "POST",
                 body: request.action
             })
@@ -41,5 +43,5 @@ export const gameApi = createApi({
 export const {
     useLazyGetGameStateQuery,
     useLazyStartGameQuery,
-    useLazyPostAnswerQuery
+    useLazyPostActionQuery
 } = gameApi

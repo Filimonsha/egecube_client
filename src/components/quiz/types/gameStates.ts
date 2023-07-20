@@ -14,6 +14,7 @@ export interface GameState  {
     taskSet: Array<SimpleTask>
     gameField: Array<Array<Pair<string, boolean>>>,
     postedAnswers: Array<Pair<GameAnswer, boolean>>,
+    pickedForAnswer: Array<String>
     startApproved: Array<number>,
     started: boolean
 }

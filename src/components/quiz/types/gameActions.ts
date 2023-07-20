@@ -1,4 +1,4 @@
-export type ActionType = "PICK_FOR_ANSWER" | "SUBMIT_ANSWER" | "GIVE_UP"
+export type ActionType = "PICK_FOR_ANSWER" | "UNPICK_FOR_ANSWER" | "SUBMIT_ANSWER" | "GIVE_UP"
 
 export type GameAnswer = {
     userId: number,
@@ -11,27 +11,22 @@ export interface QuizAction {
 }
 
 export interface PickForAnswer extends QuizAction {
-    row: number,
-    column: number
+    questionId: string
+}
+
+export interface UnPickForAnswer extends QuizAction {
+    questionId: string
 }
 
 export interface SubmitAnswer extends QuizAction {
     answer: GameAnswer
 }
 
-export interface GiveUp extends QuizAction {}
-
-
-export type GameAction = {
-    actionType: ActionType,
-    status: boolean,
-    row: number,
-    column: number,
-    answer: GameAnswer,
-    content: string
+export interface GiveUp extends QuizAction {
+    userId: number
 }
 
 export type GameActionRequest = {
     gameId: string,
-    action: GameAction
+    action: QuizAction
 }

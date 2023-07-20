@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {rest_addr} from "@/components/quiz/api/addresses";
-import {GameState} from "@/components/quiz/types/types";
+import {GameState} from "@/components/quiz/types/gameStates";
 
 
 const baseQuery = fetchBaseQuery({

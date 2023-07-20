@@ -8,3 +8,4 @@ export function calculatePosition(rowsNum: number, rowLen: number, rowI: number,
     const yPos = yInterval * (rowI + 1) + yFields/2
     return {x: xPos, y: yPos}
 }
+
