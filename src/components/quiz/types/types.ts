@@ -3,11 +3,6 @@ export type StartRequest = {
     userId: number
 }
 
-export interface Participants {
-    all: Array<number>,
-    active: Array<number>
-}
-
 export type Pair<A, B> = {
     first: A,
     second: B

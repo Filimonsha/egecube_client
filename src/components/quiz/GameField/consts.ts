@@ -1,6 +1,6 @@
 export const field = {
-    width: 500,
-    height: 600
+    width: 400,
+    height: 500
 }
 
 export const elementSize = {

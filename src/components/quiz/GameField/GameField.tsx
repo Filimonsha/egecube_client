@@ -1,9 +1,8 @@
 "use client"
-import React, {useState} from 'react';
 import {field} from "@/components/quiz/GameField/consts";
 import {Circle, Layer, Line, RegularPolygon, Stage} from "react-konva";
 import {calculatePosition} from "@/components/quiz/GameField/utils";
-import AnswerModal, {AnswerModalProps} from "@/components/quiz/AnswerModal/AnswerModal";
+import AnswerModal from "@/components/quiz/AnswerModal/AnswerModal";
 import {GameIds, GameState} from "@/components/quiz/types/gameStates";
 import {Pair} from "@/components/quiz/types/types";
 import {PickForAnswer} from "@/components/quiz/types/gameActions";
@@ -13,11 +12,12 @@ import {useModalState} from "@/components/quiz/GameField/hooks";
 interface GameFieldProps {
     userState: GameIds
     gameState: GameState,
-    setGameState: (state: GameState) => void
+    setGameState: (state: GameState) => void,
+    gameBlockedFor: number
 }
 
 const GameField = (
-    {gameState, setGameState, userState}: GameFieldProps
+    {gameState, setGameState, userState, gameBlockedFor}: GameFieldProps
 ) => {
     const handleClose = () => {setModalState({...modalState, show: false});}
     const [sendAction] = useLazyPostActionQuery()
@@ -26,6 +26,8 @@ const GameField = (
 
     const handleElementClick = (element: Pair<string, boolean>) => {
         if (element.second) return
+        if (isPickedForAnswer(element.first)) return
+        if (gameBlockedFor > 0) return;
         const foundQuestion = gameState.taskSet.find((obj) => obj.id === element.first)
         console.log(foundQuestion)
         sendAction({
@@ -47,6 +49,13 @@ const GameField = (
             (obj) => obj === questionId
         ) != undefined
 
+    const isAnsweredByUser = (questionId: string): boolean =>
+        gameState.postedAnswers.find(
+            (obj) =>
+                obj.second &&
+                obj.first.simpleTaskId === questionId &&
+                obj.first.userId === userState.userId
+        ) != undefined
 
     return (
         <>
@@ -84,6 +93,7 @@ const GameField = (
                                 onClick={() => handleElementClick(elem)}
                                 key={elem.first}
                                 shadowBlur={isPickedForAnswer(elem.first) ? 10 : 0}
+                                stroke={isAnsweredByUser(elem.first) ? "black": ""}
                             />)
                         })
                     })}

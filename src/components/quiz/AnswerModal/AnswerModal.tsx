@@ -2,8 +2,7 @@ import {Button, Modal} from "react-bootstrap";
 import {SimpleTask} from "@/components/quiz/types/types";
 import {useLazyPostActionQuery} from "@/components/quiz/api/gameApi";
 import {GameState} from "@/components/quiz/types/gameStates";
-import {PickForAnswer, SubmitAnswer, UnPickForAnswer} from "@/components/quiz/types/gameActions";
-import {element} from "prop-types";
+import {SubmitAnswer, UnPickForAnswer} from "@/components/quiz/types/gameActions";
 
 export interface AnswerModalProps {
     gameId: string
@@ -19,7 +18,7 @@ const AnswerModal = (
 ) => {
     const [sendAction] = useLazyPostActionQuery()
 
-    const handleSubmit = (submitted: string, task: SimpleTask) => {
+    const handleSubmit = (submitted: string) => {
         if (!modalState.taskChosen) return
         console.log(`Submitting answer ${submitted}`)
         sendAction({
@@ -33,6 +32,7 @@ const AnswerModal = (
                 }
             } as SubmitAnswer
         })
+        unPickAnswer()
         modalState.handleClose()
     }
 
@@ -63,16 +63,11 @@ const AnswerModal = (
                 {modalState.taskChosen?.answers.map((answer, index) =>
                     <Button
                         variant="primary"
-                        onClick={() => handleSubmit(answer, modalState.taskChosen!!)}
+                        onClick={() => handleSubmit(answer)}
                         key={index}
                     >{answer}</Button>
                 )}
             </Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={modalState.handleClose}>
-                    Close
-                </Button>
-            </Modal.Footer>
         </Modal>
     );
 }
