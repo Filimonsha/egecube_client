@@ -4,20 +4,23 @@ import styles from "@/components/form/form.module.css";
 import FormElementInput from "@/components/form/util/FormElementInput";
 import FormElementButton from "@/components/form/util/FormElementButton";
 import { SyntheticEvent, useEffect } from "react";
-import { useCreateUserMutation } from "@/redux/api/user/userApi";
+import { useCreateUserMutation } from "@/redux/api/user/userAccountApi";
 import useRegFormInput from "@/hooks/form/useRegFormInput";
+import { LOGIN_ROUTE } from "@/const/routes";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
-  const [createUser, { data }] = useCreateUserMutation();
+  const [createUser, { isSuccess }] = useCreateUserMutation();
   const { userInfo, setters } = useRegFormInput();
+  const router = useRouter();
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    if (isSuccess)
+      router.push(LOGIN_ROUTE);
+  }, [isSuccess])
 
   const submitHandler = async (event: SyntheticEvent) => {
     event.preventDefault();
-
     await createUser(userInfo).unwrap();
   };
 

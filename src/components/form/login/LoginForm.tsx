@@ -4,18 +4,35 @@ import FormElementInput from "@/components/form/util/FormElementInput";
 import styles from "../form.module.css";
 import FormElementButton from "@/components/form/util/FormElementButton";
 import FormElementLink from "@/components/form/util/FormElementLink";
-import { FormEventHandler, SyntheticEvent } from "react";
+import { FormEventHandler, SyntheticEvent, useEffect } from "react";
 import useAuthFormInput from "@/hooks/form/useAuthFormInput";
-import { REGISTER_ROUTE } from "@/const/routes";
+import { PROFILE_ROUTE, REGISTER_ROUTE } from "@/const/routes";
+import { useAuthorizeUserMutation } from "@/redux/api/user/userAuthApi";
+import { useRouter } from "next/navigation";
+import { createUser } from "@/redux/slice/userCredentialsSlice";
+import { useAppDispatch } from "@/hooks/hooks";
 
 const LoginForm = () => {
   const { userCreds, setters } = useAuthFormInput();
+  const [authorizeUser, { isSuccess }] = useAuthorizeUserMutation();
 
-  const submitHandler: FormEventHandler<HTMLFormElement> = (
+  const dispatch = useAppDispatch();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isSuccess) {
+      router.push(PROFILE_ROUTE);
+      dispatch(createUser(userCreds));
+    }
+  }, [isSuccess]);
+
+  const submitHandler: FormEventHandler<HTMLFormElement> = async (
     event: SyntheticEvent,
   ) => {
     event.preventDefault();
-    console.log(userCreds);
+
+    await authorizeUser(userCreds).unwrap();
   };
 
   const inputElements = [

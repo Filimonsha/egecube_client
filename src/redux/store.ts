@@ -1,11 +1,11 @@
-import {combineReducers, configureStore} from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import baseBackendApi from "@/redux/api/baseQuery";
-import userSlice from "@/redux/slice/userBaseSlice";
+import userCredentialsReducer from "@/redux/slice/userCredentialsSlice";
 
 const reducer = combineReducers({
-  userBase: userSlice,
+  user: userCredentialsReducer,
   [baseBackendApi.reducerPath]: baseBackendApi.reducer,
-})
+});
 
 const store = configureStore({
   reducer,

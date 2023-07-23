@@ -1,5 +1,5 @@
 import { RootState } from "@/redux/store";
 
-const selectUserBaseState = (state: RootState) => state.userBase;
+const selectUserState = (state: RootState) => state.user;
 
-export { selectUserBaseState };
+export { selectUserState };
