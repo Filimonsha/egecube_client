@@ -2,11 +2,11 @@ import { useState } from "react";
 import { UserBase } from "@/types/backend/user";
 
 type RegFormSetters = {
-  setFirstName: (string) => void;
-  setLastName: (string) => void;
-  setUserPhone: (string) => void;
-  setUserMail: (string) => void;
-  setPassword: (string) => void;
+  setFirstName: (firstName: string) => void;
+  setLastName: (lastName: string) => void;
+  setUserPhone: (userPhone: string) => void;
+  setUserMail: (userMail: string) => void;
+  setPassword: (password: string) => void;
 };
 
 const useRegFormInput = (): { userInfo: UserBase; setters: RegFormSetters } => {

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { UserCredentials } from "@/types/backend/user";
 
 type AuthFormSetters = {
-  setUserMail: (string) => void;
-  setPassword: (string) => void;
+  setUserMail: (userMail: string) => void;
+  setPassword: (password: string) => void;
 };
 
 const useAuthFormInput = (): {

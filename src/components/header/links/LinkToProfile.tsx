@@ -13,10 +13,6 @@ const LinkToProfile = () => {
 
   const { userCredentials } = useAppSelector((state) => selectUserState(state));
 
-  useEffect(() => {
-    console.log(userCredentials);
-  });
-
   return (
     <div className={styles.headerElement}>
       {!userCredentials

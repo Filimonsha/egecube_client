@@ -9,7 +9,7 @@ import useAuthFormInput from "@/hooks/form/useAuthFormInput";
 import { PROFILE_ROUTE, REGISTER_ROUTE } from "@/const/routes";
 import { useAuthorizeUserMutation } from "@/redux/api/user/userAuthApi";
 import { useRouter } from "next/navigation";
-import { createUser } from "@/redux/slice/userCredentialsSlice";
+import { setUserCreadentials } from "@/redux/slice/userCredentialsSlice";
 import { useAppDispatch } from "@/hooks/hooks";
 
 const LoginForm = () => {
@@ -23,12 +23,12 @@ const LoginForm = () => {
   useEffect(() => {
     if (isSuccess) {
       router.push(PROFILE_ROUTE);
-      dispatch(createUser(userCreds));
+      dispatch(setUserCreadentials(userCreds));
     }
   }, [isSuccess]);
 
   const submitHandler: FormEventHandler<HTMLFormElement> = async (
-    event: SyntheticEvent,
+    event: SyntheticEvent
   ) => {
     event.preventDefault();
 

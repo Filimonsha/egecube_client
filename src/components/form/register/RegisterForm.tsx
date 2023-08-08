@@ -15,9 +15,8 @@ const RegisterForm = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (isSuccess)
-      router.push(LOGIN_ROUTE);
-  }, [isSuccess])
+    if (isSuccess) router.push(LOGIN_ROUTE);
+  }, [isSuccess]);
 
   const submitHandler = async (event: SyntheticEvent) => {
     event.preventDefault();

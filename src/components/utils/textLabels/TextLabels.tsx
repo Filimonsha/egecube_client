@@ -13,7 +13,7 @@ const TextLabels = () => {
   const { data: subjects, isLoading: subjectsIsLoading } =
     useGetSubjectsQuery();
 
-  const printSubjects = (subjects: Array<Subject>) => {
+  const printSubjects = (subjects: Array<Subject> | undefined) => {
     let str = "";
     if (subjects)
       subjects.forEach(
@@ -23,7 +23,7 @@ const TextLabels = () => {
     return str;
   };
 
-  const printCourses = (courses: Array<Course>) => {
+  const printCourses = (courses: Array<Course> | undefined) => {
     let str = "";
     if (courses)
       courses.forEach(

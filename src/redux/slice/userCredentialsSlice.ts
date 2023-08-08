@@ -13,11 +13,11 @@ const userCredentialsSlice = createSlice({
   name: "userCredentialsSlice",
   initialState,
   reducers: {
-    createUser(state, action: PayloadAction<UserCredentials>) {
+    setUserCreadentials(state, action: PayloadAction<UserCredentials>) {
       state.userCredentials = action.payload;
     },
   },
 });
 
-export const { createUser } = userCredentialsSlice.actions;
+export const { setUserCreadentials } = userCredentialsSlice.actions;
 export default userCredentialsSlice.reducer;

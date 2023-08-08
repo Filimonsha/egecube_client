@@ -9,7 +9,7 @@ const userAccountApi = baseBackendApi.injectEndpoints({
     getUserByEmail: build.query<User, string>({
       query: (userEmail) => `users/accounts?name=${userEmail}`
     }),
-    createUser: build.mutation<UserBase, number>({
+    createUser: build.mutation<number, UserBase>({
       query: (userBase) => ({
         url: "users/accounts",
         method: "POST",

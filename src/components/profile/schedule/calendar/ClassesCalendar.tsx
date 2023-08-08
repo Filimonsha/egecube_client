@@ -6,19 +6,18 @@ import "./calendar_theme.sass";
 import ElementContainer from "@/components/profile/schedule/ElementContainer";
 import { useGetAvailableLecturesByListenerIdQuery } from "@/redux/api/lecture/lectureApi";
 import { useEffect, useState } from "react";
-import { Lecture } from "@/types/backend/lecture";
 import { ScheduleEvent } from "@/types/schedule/scheduleEvent";
 
 const localizer = momentLocalizer(moment);
 
 const ClassesCalendar = () => {
-  const { data, isLoading, isError }: { data: Array<Lecture> } =
+  const { data, isLoading, isError } =
     useGetAvailableLecturesByListenerIdQuery(1);
   const [events, setEvents] = useState<Array<ScheduleEvent>>([]);
 
   useEffect(() => {
     let eventsList: Array<ScheduleEvent> = [];
-    if (!isError && !isLoading) {
+    if (data) {
       data.forEach((lecture) =>
         eventsList.push({
           title: lecture.name,

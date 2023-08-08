@@ -4,7 +4,7 @@ import styles from "../form.module.css";
 interface IFormElementInputProps {
   title: string;
   type: string;
-  valueGetter: (string) => void;
+  valueGetter: (value: string) => void;
 }
 
 const FormElementInput: FC<IFormElementInputProps> = ({
