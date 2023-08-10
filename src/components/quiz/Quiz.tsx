@@ -61,6 +61,9 @@ const Quiz = (
             setGameState={setGameState}
         />
     }
+    if (gameState.winner !== -1) {
+        return <p>Winner {gameState.winner}</p>
+    }
     return (
         <div style={{
             display: "flex", flexDirection: "column",

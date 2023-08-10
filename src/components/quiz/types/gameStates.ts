@@ -16,5 +16,6 @@ export interface GameState  {
     postedAnswers: Array<Pair<GameAnswer, boolean>>,
     pickedForAnswer: Array<String>
     startApproved: Array<number>,
-    started: boolean
+    started: boolean,
+    winner: number
 }

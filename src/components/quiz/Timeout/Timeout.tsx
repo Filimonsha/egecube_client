@@ -11,7 +11,6 @@ const Timeout = (
     {delay, setDelay}: TimeoutProps
 ) => {
     if (delay <= 0) {
-        setDelay(0)
         return null
     }
     const percents = delay / blockTimeoutSeconds * 100

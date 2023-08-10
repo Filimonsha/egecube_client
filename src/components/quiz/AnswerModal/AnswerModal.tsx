@@ -1,3 +1,4 @@
+"use client"
 import {Button, Modal} from "react-bootstrap";
 import {SimpleTask} from "@/components/quiz/types/types";
 import {useLazyPostActionQuery} from "@/components/quiz/api/gameApi";
@@ -32,7 +33,7 @@ const AnswerModal = (
                 }
             } as SubmitAnswer
         })
-        unPickAnswer()
+        setTimeout(() => unPickAnswer(), 100)
         modalState.handleClose()
     }
 
