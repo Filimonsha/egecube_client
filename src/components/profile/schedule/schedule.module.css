@@ -1,0 +1,14 @@
+.scheduleElement {
+    background: #dad9d9;
+    margin: 10px;
+}
+
+.scheduleElement {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.scheduleContainer {
+    width: 100%;
+}
