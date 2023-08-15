@@ -1,7 +1,7 @@
 import styles from "./rootPage.module.css";
 import StandingGang from "@/components/funnyJokes/StandingGang";
-import {getServerSession} from "next-auth";
 import {authOptions} from "@/app/api/auth/[...nextauth]/route";
+import {getServerSession} from "next-auth/next";
 
 const Main = async () => {
     const session = await getServerSession(authOptions)

@@ -6,15 +6,17 @@ export default withAuth(
     {
         callbacks: {
             authorized: ({req, token}) => {
-                console.log("token",token)
+
+                console.log("tosskesn",token)
 
                 if (
-                    req.nextUrl.pathname.startsWith('/') &&
+                    // req.nextUrl.pathname.startsWith('/') &&
                     token === null
                 ) {
+                    console.log("a")
                     return false
                 }
-                return true
+                return false
             }
         }
     }
