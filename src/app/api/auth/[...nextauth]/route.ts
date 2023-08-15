@@ -3,7 +3,8 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import {JWT} from "next-auth/jwt";
 
 export const authOptions: AuthOptions = {
-   secret:"bcYLB0AgIeO7tCCDDBthqtGpdheHsC9TgZDWYYzmIIU=",
+    // secret: "bcYLB0AgIeO7tCCDDBthqtGpdheHsC9TgZDWYYzmIIU=",
+    // secret: "",
     providers: [
         CredentialsProvider({
             name: 'Credentials',
@@ -21,39 +22,46 @@ export const authOptions: AuthOptions = {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
-                            userMail: "filberol@mail.com",
-                            password: "filberol"
+                            userMail: credentials.email,
+                            password: credentials.password
                         }),
                     })
 
-                    const response = await res.json()
-                    console.log("res", response.token)
 
+                    const response = await res.json()
                     if (!res.ok) {
                         return null
                     }
+                    //TODO
+                    const userRequest = await fetch(`http://localhost:8080/api/users/accounts/${1}`,
+                        {
+                            headers: {Authentication: `Bearer ${response.token}`}
+                        }
+                        )
 
-                    const user = { id: "1", name: "J Smith", email: "jsmith@example.com" }
-
-                    if (user) {
-                        console.log("ALLLGOD")
-
-                        // Any object returned will be saved in `user` property of the JWT
+                    if (userRequest.ok) {
+                        const user = await res.json()
+                        console.log("user", user)
                         return user
-                    } else {
-                        // If you return null then an error will be displayed advising the user to check their details.
-                        return null
-
-                        // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
                     }
-                } else {
+
                     return null
+                    // const user = { id: "1", name: "J Smith", email: "jsmith@example.com" }
+
+                    // if (user) {
+
+                    // Any object returned will be saved in `user` property of the JWT
+                } else {
+                    // If you return null then an error will be displayed advising the user to check their details.
+                    return null
+
+                    // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
                 }
             }
         }),
     ],
     session: {strategy: "jwt"},
-    callbacks: {
+    // callbacks: {
         // async jwt({token, user, account, profile}) {
         //     console.log("form jwt", user)
         //     console.log("token", token)
@@ -82,7 +90,7 @@ export const authOptions: AuthOptions = {
         //     }, {})
         //     return { expires:"123"}
         // },
-    }
+    // }
 }
 
 const handler = NextAuth(authOptions)
