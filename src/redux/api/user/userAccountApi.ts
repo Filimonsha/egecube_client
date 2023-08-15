@@ -1,14 +1,18 @@
 import { User, UserBase } from "@/types/backend/user";
 import baseBackendApi from "@/redux/api/baseQuery";
-import { USERS_API_ACCOUNTS, USERS_API_ACCOUNTS_BY_EMAIL } from "@/const/routes";
+import {
+  USERS_API_ACCOUNTS,
+  getUserByEmailRoute,
+  getUserByIdRoute,
+} from "@/const/routes";
 
 const userAccountApi = baseBackendApi.injectEndpoints({
   endpoints: (build) => ({
     getUserById: build.query<User, number>({
-      query: (userId) => USERS_API_ACCOUNTS + "/" + userId,
+      query: (userId) => getUserByIdRoute(userId),
     }),
     getUserByEmail: build.query<User, string>({
-      query: (userEmail) => USERS_API_ACCOUNTS_BY_EMAIL + userEmail
+      query: (userEmail) => getUserByEmailRoute(userEmail),
     }),
     createUser: build.mutation<number, UserBase>({
       query: (userBase) => ({
@@ -20,4 +24,8 @@ const userAccountApi = baseBackendApi.injectEndpoints({
   }),
 });
 
-export const { useGetUserByIdQuery, useCreateUserMutation, useGetUserByEmailQuery } = userAccountApi;
+export const {
+  useGetUserByIdQuery,
+  useCreateUserMutation,
+  useGetUserByEmailQuery,
+} = userAccountApi;
