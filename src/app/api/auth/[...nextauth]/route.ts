@@ -38,10 +38,12 @@ export const authOptions: AuthOptions = {
                             headers: {Authentication: `Bearer ${response.token}`}
                         }
                         )
-
+                    // console.log("reqsaf",userRequest)
+                    console.log("a")
+                    const user = await userRequest.json()
+                    console.log("user", user)
                     if (userRequest.ok) {
-                        const user = await res.json()
-                        console.log("user", user)
+
                         return user
                     }
 
