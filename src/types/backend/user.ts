@@ -1,4 +1,4 @@
-enum UserRole {
+export enum USER_ROLE {
   User = "USER",
   Admin = "ADMIN",
   Teacher = "TEACHER",
@@ -12,7 +12,7 @@ export type User = {
   firstName: string;
   lastName: string;
   accountSuspended: boolean;
-  userRole: UserRole;
+  userRole: USER_ROLE;
 };
 
 export type UserBase = {
