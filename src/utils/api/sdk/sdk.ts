@@ -6,27 +6,28 @@ class APIClient {
     private currentApiToken: null | string = null
     private homeworkAPI = new HomeworkAPI()
 
-    async callApiWithSession() {
-        const {apiToken} = await getServerSessionWithOptions()
-        console.log("apitoken", apiToken)
-        this.currentApiToken = apiToken
+    callApiWithSession() {
+
 
         // Object.keys( ) => services[key] = Clazz(key)
         return {
-            getHomeworkService: () => this.homeworkAPI.getHomeworkService(this.fetchWithHeaders()),
+            homeworkService: this.homeworkAPI.getHomeworkService(this.fetchWithHeaders()),
 
         }
     }
 
 
     private fetchWithHeaders() {
-        const token = this.currentApiToken
-        console.log("from fetch", token)
-        return (URL: string) => fetch(URL, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            }
-        })
+
+        return async (URL: string) => {
+            const {apiToken} = await getServerSessionWithOptions()
+
+            return (await fetch(URL, {
+                headers: {
+                    Authorization: `Bearer ${apiToken}`,
+                }
+            })).json()
+        }
     }
 }
 
