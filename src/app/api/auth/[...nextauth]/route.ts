@@ -3,8 +3,6 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import {JWT} from "next-auth/jwt";
 
 export const authOptions: AuthOptions = {
-    // secret: "bcYLB0AgIeO7tCCDDBthqtGpdheHsC9TgZDWYYzmIIU=",
-    // secret: "",
     providers: [
         CredentialsProvider({
             name: 'Credentials',
@@ -37,62 +35,53 @@ export const authOptions: AuthOptions = {
                         {
                             headers: {Authentication: `Bearer ${response.token}`}
                         }
-                        )
-                    // console.log("reqsaf",userRequest)
+                    )
                     console.log("a")
                     const user = await userRequest.json()
                     console.log("user", user)
                     if (userRequest.ok) {
 
-                        return user
+                        return {...user, apiToken: response.token}
                     }
 
                     return null
-                    // const user = { id: "1", name: "J Smith", email: "jsmith@example.com" }
 
-                    // if (user) {
-
-                    // Any object returned will be saved in `user` property of the JWT
                 } else {
-                    // If you return null then an error will be displayed advising the user to check their details.
                     return null
-
-                    // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
                 }
             }
         }),
     ],
     session: {strategy: "jwt"},
-    // callbacks: {
-        // async jwt({token, user, account, profile}) {
-        //     console.log("form jwt", user)
-        //     console.log("token", token)
-        //     if (typeof user !== "undefined") {
-        //         console.log("AAAA", {name: "123"} as JWT)
-        //         // user has just signed in so the user object is populated
-        //         return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-        //     }
-        //     return token
-        // },
-        // async session ({ session, token, user }) {
-        //     console.log("From session",session)
-        //     console.log("token",token)
-        //     const sanitizedToken = Object.keys(token).reduce((p, c) => {
-        //         // strip unnecessary properties
-        //         if (
-        //             c !== "iat" &&
-        //             c !== "exp" &&
-        //             c !== "jti" &&
-        //             c !== "apiToken"
-        //         ) {
-        //             return { ...p, [c]: token[c] }
-        //         } else {
-        //             return p
-        //         }
-        //     }, {})
-        //     return { expires:"123"}
-        // },
-    // }
+    callbacks: {
+        async jwt({token, user, account, profile}) {
+            if (typeof user !== "undefined") {
+                // user has just signed in so the user object is populated
+                return user as JWT
+            }
+            return token
+        },
+        async session({session, token, user}) {
+            const sanitizedToken:{[key:string]:any} = Object.keys(token).reduce((p, c) => {
+                // strip unnecessary properties
+                if (
+                    c !== "iat" &&
+                    c !== "exp" &&
+                    c !== "jti" &&
+                    c !== "apiToken"
+                ) {
+                    return { ...p, [c]: token[c] }
+                } else {
+                    return p
+                }
+            }, {})
+
+            session.apiToken = token.apiToken
+            session.user = sanitizedToken
+
+            return session
+        },
+    }
 }
 
 const handler = NextAuth(authOptions)
