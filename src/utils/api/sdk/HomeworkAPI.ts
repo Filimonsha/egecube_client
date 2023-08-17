@@ -1,26 +1,27 @@
 import {BASE_URL} from "@/utils/api/sdk/const";
-import {FetchWithHeaders} from "@/utils/api/sdk/sdk";
-import {Homework} from "@/types/backend/homework";
+import {FetchWithHeaders, IAPI} from "@/utils/api/sdk/sdk";
+import {IHomeworkRequest, IHomework} from "@/types/backend/homework";
 
-const HOMEWORK_SERVICE_BASE_URL = BASE_URL + "/homewroks-management"
+const HOMEWORK_SERVICE_BASE_URL = BASE_URL + "/homeworks-management"
 const ALL_HOMEWORK_URL = HOMEWORK_SERVICE_BASE_URL + "/homeworks"
 
-export class HomeworkAPI {
+export class HomeworkAPI implements IAPI{
 
-    getHomeworkService(fetchWithHeaders: FetchWithHeaders) {
+    getService(fetchWithHeaders: FetchWithHeaders) {
 
         return {
             getAllHomework(forTeacher: boolean, userId: number) {
 
-                return fetchWithHeaders<Array<Homework>>(ALL_HOMEWORK_URL + `?${forTeacher ? "creatorId" : "solverId"}=${userId}`)
+                return fetchWithHeaders<Array<IHomework>>(ALL_HOMEWORK_URL + `?${forTeacher ? "creatorId" : "solverId"}=${userId}`)
             },
             getHomework(homeworkId: string) {
-                return fetchWithHeaders<Homework>(ALL_HOMEWORK_URL + `/${homeworkId}`)
+                return fetchWithHeaders<IHomework>(ALL_HOMEWORK_URL + `/${homeworkId}`)
             },
 
-            createHomework(homework: Homework) {
+            createHomework(homework: IHomeworkRequest) {
                 return fetchWithHeaders<>(ALL_HOMEWORK_URL, "POST", homework)
             },
+
 
         }
     }

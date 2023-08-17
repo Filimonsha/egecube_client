@@ -1,28 +1,36 @@
 import getServerSessionWithOptions from "@/utils/api/getServerSessionWithOptions";
 import {HomeworkAPI} from "@/utils/api/sdk/HomeworkAPI";
-import {Homework} from "@/types/backend/homework";
+import {SubjectAPI} from "@/utils/api/sdk/SubjectAPI";
+import {getSession} from "next-auth/react";
 
 export type FetchWithHeaders = <T>(URL: string, method?: string, body?: any) => Promise<T | undefined>
+
+export interface IAPI {
+    getService(fetchWithHeaders: FetchWithHeaders): { [key: string]: (...args) => Promise<any> }
+}
 
 class APIClient {
     private currentApiToken: null | string = null
     private homeworkAPI = new HomeworkAPI()
+    private subjectAPI = new SubjectAPI()
 
-    callApiWithSession() {
+    callApiWithSession(server:boolean = true) {
 
 
         // Object.keys( ) => services[key] = Clazz(key)
         return {
-            homeworkService: this.homeworkAPI.getHomeworkService(this.fetchWithHeaders()),
-
+            homeworkService: this.homeworkAPI.getService(this.fetchWithHeaders(server)),
+            subjectService: this.subjectAPI.getService(this.fetchWithHeaders(server))
         }
     }
 
 
-    private fetchWithHeaders() {
+    private fetchWithHeaders(server:boolean) {
 
         const fetchCallback: FetchWithHeaders = async (URL: string, method: string = "GET", body?: any) => {
-            const {apiToken} = await getServerSessionWithOptions()
+
+            const {apiToken} = server ? await getServerSessionWithOptions() : await getSession()
+            console.log(apiToken,'ds')
             try {
                 const response = await fetch(URL, {
                     headers: {
@@ -31,7 +39,9 @@ class APIClient {
                     method,
                     body
                 })
-            } catch {
+                return await response.json()
+            } catch (e){
+                console.error(e,"error")
                 return undefined
             }
         }

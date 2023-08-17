@@ -12,6 +12,8 @@ import {
     Typography
 } from "@mui/material";
 import HomeworkCreator from "@/app/homework/(modules)/homework-creator";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import {LocalizationProvider} from "@mui/x-date-pickers";
 
 interface IListOfAllHomeworkProps {
     userRole: USER_ROLE
@@ -24,31 +26,36 @@ const ListOfAllHomework = async ({
                                      userId
                                  }: IListOfAllHomeworkProps) => {
     const homeworks = await apiClient.callApiWithSession().homeworkService.getAllHomework((userRole === USER_ROLE.Teacher), userId)
-
-    console.log(homeworks, "shaaa")
+    //TODO
+    const courses = await apiClient.callApiWithSession().subjectService.getCoursesBySubjectId(1)
+    console.log(homeworks, courses, "shaaa")
 
     if (userRole === USER_ROLE.Teacher) {
 
 
     }
 
-    return (<div>
-        <Button variant="contained">Hello world</Button>
-        <HomeworkCreator/>
-        <Accordion>
-            <AccordionSummary>
-                <Typography>all your homeworks</Typography>
+    return (
+        <div>
+            {
+                courses && <HomeworkCreator courses={courses}/>
+            }
 
-            </AccordionSummary>
-            <AccordionDetails>
-                <List>
-                    {
-                        homeworks?.map(homework => <ListItem>{homework.title}</ListItem>)
-                    }
-                </List>
-            </AccordionDetails>
-        </Accordion>
-    </div>)
+            <Accordion>
+                <AccordionSummary>
+                    <Typography>all your homeworks</Typography>
+
+                </AccordionSummary>
+                <AccordionDetails>
+                    <List>
+                        {
+                            homeworks?.map(homework => <ListItem key={homework._id}>{homework.title}</ListItem>)
+                        }
+                    </List>
+                </AccordionDetails>
+            </Accordion>
+        </div>
+    )
 }
 
 const HomeworkPage = async () => {
