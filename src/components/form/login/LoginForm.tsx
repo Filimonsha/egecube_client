@@ -28,7 +28,7 @@ const LoginForm = () => {
   }, [isSuccess]);
 
   const submitHandler: FormEventHandler<HTMLFormElement> = async (
-    event: SyntheticEvent
+    event: SyntheticEvent,
   ) => {
     event.preventDefault();
 
@@ -47,7 +47,7 @@ const LoginForm = () => {
   return (
     <div className={styles.formContainer}>
       <form className={styles.formContent} onSubmit={submitHandler}>
-        {inputElements.map((element) => (
+        {inputElements.map(element => (
           <FormElementInput
             key={element.title}
             title={element.title}

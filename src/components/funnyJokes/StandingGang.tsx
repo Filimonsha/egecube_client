@@ -4,7 +4,7 @@ const StandingGang = () => {
   return (
     <>
       {Array(1, 2, 3).map((v, i) => (
-        <StandingCat key={i}/>
+        <StandingCat key={i} />
       ))}
     </>
   );

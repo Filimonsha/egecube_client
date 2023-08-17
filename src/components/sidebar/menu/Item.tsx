@@ -16,8 +16,7 @@ const Item = ({ children, currentPath, targetPath }: MenuItemProps) => {
   return (
     <Link
       href={targetPath}
-      className={activeToTextStyle(currentPath, targetPath)}
-    >
+      className={activeToTextStyle(currentPath, targetPath)}>
       {children}
     </Link>
   );

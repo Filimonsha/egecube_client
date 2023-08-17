@@ -9,7 +9,7 @@ const reducer = combineReducers({
 
 const store = configureStore({
   reducer,
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(baseBackendApi.middleware),
 });
 

@@ -1,34 +1,33 @@
-
 .profilePageContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .profilePageContainer {
-    width: 100%;
-    min-height: 100vh;
+  width: 100%;
+  min-height: 100vh;
 }
 
 .profileElementsContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .profileElementsContainer {
-    width: 100%;
-    min-height: 100vh;
+  width: 100%;
+  min-height: 100vh;
 }
 
 .contentContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80%;
-    background: #bdbdbd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  background: #bdbdbd;
 }
 
 .contentContainer {
-    padding: 20px;
+  padding: 20px;
 }

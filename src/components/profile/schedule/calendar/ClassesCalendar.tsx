@@ -18,7 +18,7 @@ const ClassesCalendar = () => {
   useEffect(() => {
     let eventsList: Array<ScheduleEvent> = [];
     if (data) {
-      data.forEach((lecture) =>
+      data.forEach(lecture =>
         eventsList.push({
           title: lecture.name,
           start: new Date(lecture.startsAt),

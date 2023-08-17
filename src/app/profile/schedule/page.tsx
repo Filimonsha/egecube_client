@@ -4,20 +4,14 @@ import ClassesCalendar from "@/components/profile/schedule/calendar/ClassesCalen
 import InfoPanel from "@/components/profile/schedule/infoPanel/InfoPanel";
 import ElementContainer from "@/components/profile/schedule/ElementContainer";
 
-const layoutElements = [
-    <InfoPanel />,
-    <ClassesCalendar />,
-    <UpcomingEvent />
-]
+const layoutElements = [<InfoPanel />, <ClassesCalendar />, <UpcomingEvent />];
 
 const Schedule = () => {
   return (
     <div className={styles.scheduleContainer}>
-        {layoutElements.map((element) =>
-            <ElementContainer>
-                {element}
-            </ElementContainer>
-        )}
+      {layoutElements.map(element => (
+        <ElementContainer>{element}</ElementContainer>
+      ))}
     </div>
   );
 };

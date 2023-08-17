@@ -1,71 +1,69 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import apiClient from "@/utils/api/sdk/sdk";
-import {USER_ROLE} from "@/types/backend/user";
+import { USER_ROLE } from "@/types/backend/user";
 import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Button,
-    Container,
-    List,
-    ListItem, Slider, TextField,
-    Typography
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  Container,
+  List,
+  ListItem,
+  Slider,
+  TextField,
+  Typography,
 } from "@mui/material";
 import HomeworkCreator from "@/app/homework/(modules)/homework-creator";
-import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
-import {LocalizationProvider} from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers";
 
 interface IListOfAllHomeworkProps {
-    userRole: USER_ROLE
-    userId: number,
+  userRole: USER_ROLE;
+  userId: number;
 }
-
 
 const ListOfAllHomework = async ({
-                                     userRole,
-                                     userId
-                                 }: IListOfAllHomeworkProps) => {
-    const homeworks = await apiClient.callApiWithSession().homeworkService.getAllHomework((userRole === USER_ROLE.Teacher), userId)
-    //TODO
-    const courses = await apiClient.callApiWithSession().subjectService.getCoursesBySubjectId(1)
-    console.log(homeworks, courses, "shaaa")
+  userRole,
+  userId,
+}: IListOfAllHomeworkProps) => {
+  const homeworks = await apiClient
+    .callApiWithSession()
+    .homeworkService.getAllHomework(userRole === USER_ROLE.Teacher, userId);
+  //TODO
+  const courses = await apiClient
+    .callApiWithSession()
+    .subjectService.getCoursesBySubjectId(1);
+  console.log(homeworks, courses, "shaaa");
 
-    if (userRole === USER_ROLE.Teacher) {
+  if (userRole === USER_ROLE.Teacher) {
+  }
 
+  return (
+    <div>
+      {courses && <HomeworkCreator courses={courses} />}
 
-    }
-
-    return (
-        <div>
-            {
-                courses && <HomeworkCreator courses={courses}/>
-            }
-
-            <Accordion>
-                <AccordionSummary>
-                    <Typography>all your homeworks</Typography>
-
-                </AccordionSummary>
-                <AccordionDetails>
-                    <List>
-                        {
-                            homeworks?.map(homework => <ListItem key={homework._id}>{homework.title}</ListItem>)
-                        }
-                    </List>
-                </AccordionDetails>
-            </Accordion>
-        </div>
-    )
-}
+      <Accordion>
+        <AccordionSummary>
+          <Typography>all your homeworks</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <List>
+            {homeworks?.map(homework => (
+              <ListItem key={homework._id}>{homework.title}</ListItem>
+            ))}
+          </List>
+        </AccordionDetails>
+      </Accordion>
+    </div>
+  );
+};
 
 const HomeworkPage = async () => {
-
-    return (
-        <div>
-            <ListOfAllHomework userRole={USER_ROLE.Teacher} userId={1}/>
-
-        </div>
-    );
+  return (
+    <div>
+      <ListOfAllHomework userRole={USER_ROLE.Teacher} userId={1} />
+    </div>
+  );
 };
 
 export default HomeworkPage;

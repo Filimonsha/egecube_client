@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Cube from "@/components/funnyJokes/Cube";
 import styles from "@/components/header/header.module.css";
-import {MAIN_ROUTE} from "@/const/routes";
+import { MAIN_ROUTE } from "@/const/routes";
 
 const LinkOrJustPic = () => {
   const pathname = usePathname();

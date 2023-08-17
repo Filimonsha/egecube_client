@@ -10,13 +10,13 @@ import { LOGIN_ROUTE } from "@/const/routes";
 import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
-  const [createUser, { isSuccess }] = useCreateUserMutation();
+  const [createUser, { data, isSuccess }] = useCreateUserMutation();
   const { userInfo, setters } = useRegFormInput();
   const router = useRouter();
 
   useEffect(() => {
     if (isSuccess) router.push(LOGIN_ROUTE);
-  }, [isSuccess]);
+  }, [data]);
 
   const submitHandler = async (event: SyntheticEvent) => {
     event.preventDefault();
@@ -42,7 +42,7 @@ const RegisterForm = () => {
   return (
     <div className={styles.formContainer}>
       <form className={styles.formContent} onSubmit={submitHandler}>
-        {inputElements.map((element) => (
+        {inputElements.map(element => (
           <FormElementInput
             key={element.title}
             title={element.title}

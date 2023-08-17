@@ -2,3 +2,5 @@ node_modules
 .idea
 .next
 .env
+.vscode/
+.DS_Store
