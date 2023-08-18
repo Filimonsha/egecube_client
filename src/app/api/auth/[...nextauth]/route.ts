@@ -1,19 +1,18 @@
-import NextAuth, { AuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { JWT } from "next-auth/jwt";
-
+import NextAuth, {AuthOptions, JWT, User} from "next-auth";
+import Credentials from "next-auth/providers/credentials";
+import {AuthResponse, UserSession} from "@/types/backend/user";
 export const authOptions: AuthOptions = {
   providers: [
-    CredentialsProvider({
-      name: "Credentials",
+    Credentials({
       credentials: {
-        email: { label: "name", type: "text" },
-        password: { label: "password", type: "password" },
+        email: {label: 'email', type: 'email', required: true},
+        password: {label: 'password', type: 'password', required: true},
       },
-      async authorize(credentials, req) {
+
+      authorize: async function (credentials): Promise<UserSession | null> {
+        // login through back
         if (typeof credentials !== "undefined") {
-          console.log(credentials);
-          const res = await fetch("http://localhost:8080/api/users/tokens", {
+          const res = await fetch("http://localhost:8080/api/users/tokens/refresh", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -24,55 +23,46 @@ export const authOptions: AuthOptions = {
             }),
           });
 
-          const response = await res.json();
-          if (!res.ok) {
-            return null;
-          }
-          //TODO
-          const userRequest = await fetch(
-            `http://localhost:8080/api/users/accounts/${1}`,
-            {
-              headers: { Authentication: `Bearer ${response.token}` },
-            },
-          );
-          console.log("a", response);
-          const user = await userRequest.json();
-          console.log("user", user);
-          if (userRequest.ok) {
-            return { ...user, apiToken: response.token };
-          }
+          const response = await res.json() as AuthResponse;
+          if (!res.ok) return null
 
-          return null;
+          const session = {
+            ...response.userData as User,
+            accessToken: response.accessToken,
+            refreshToken: response.refreshToken
+          } as UserSession
+          console.log(session)
+          return session
+
         } else {
           return null;
         }
-      },
+      }
+
     }),
   ],
   session: { strategy: "jwt" },
   callbacks: {
-    async jwt({ token, user, account, profile }) {
+    // @ts-ignore
+    async jwt({ token, user }) {
       if (typeof user !== "undefined") {
         // user has just signed in so the user object is populated
-        return user as JWT;
+        return user as unknown as JWT;
       }
       return token;
     },
-    async session({ session, token, user }) {
-      const sanitizedToken: { [key: string]: any } = Object.keys(token).reduce(
+    async session({ session, token}) {
+      session.user = Object.keys(token).reduce(
         (p, c) => {
           // strip unnecessary properties
           if (c !== "iat" && c !== "exp" && c !== "jti" && c !== "apiToken") {
-            return { ...p, [c]: token[c] };
+            return {...p, [c]: token[c]};
           } else {
             return p;
           }
         },
         {},
       );
-
-      session.apiToken = token.apiToken;
-      session.user = sanitizedToken;
 
       return session;
     },
@@ -81,4 +71,4 @@ export const authOptions: AuthOptions = {
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST };
+export {handler as GET, handler as POST};

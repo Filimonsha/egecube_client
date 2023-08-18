@@ -2,6 +2,7 @@ import getServerSessionWithOptions from "@/utils/api/getServerSessionWithOptions
 import { HomeworkAPI } from "@/utils/api/sdk/HomeworkAPI";
 import { SubjectAPI } from "@/utils/api/sdk/SubjectAPI";
 import { getSession } from "next-auth/react";
+import {UserSession} from "@/types/backend/user";
 
 export type FetchWithHeaders = <T>(
   URL: string,
@@ -16,16 +17,12 @@ export interface IAPI {
 }
 
 class APIClient {
-  private currentApiToken: null | string = null;
   private homeworkAPI = new HomeworkAPI();
   private subjectAPI = new SubjectAPI();
 
   callApiWithSession(server: boolean = true) {
-    // Object.keys( ) => services[key] = Clazz(key)
     return {
-      homeworkService: this.homeworkAPI.getService(
-        this.fetchWithHeaders(server),
-      ),
+      homeworkService: this.homeworkAPI.getService(this.fetchWithHeaders(server)),
       subjectService: this.subjectAPI.getService(this.fetchWithHeaders(server)),
     };
   }
@@ -36,21 +33,19 @@ class APIClient {
       method: string = "GET",
       body?: any,
     ) => {
-      const { apiToken } = server
+      const { accessToken } = server
         ? await getServerSessionWithOptions()
-        : await getSession();
-      console.log(apiToken, "ds");
+        : await getSession() as unknown as UserSession;
       try {
         const response = await fetch(URL, {
           headers: {
-            Authorization: `Bearer ${apiToken}`,
+            Authorization: `Bearer ${accessToken}`,
           },
           method,
           body,
         });
         return await response.json();
       } catch (e) {
-        console.error(e, "error");
         return undefined;
       }
     };

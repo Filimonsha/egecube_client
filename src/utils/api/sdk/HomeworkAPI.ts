@@ -19,7 +19,7 @@ export class HomeworkAPI implements IAPI {
       },
 
       createHomework(homework: IHomeworkRequest) {
-        return fetchWithHeaders<>(ALL_HOMEWORK_URL, "POST", homework);
+        return fetchWithHeaders(ALL_HOMEWORK_URL, "POST", homework);
       },
     };
   }
