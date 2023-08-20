@@ -3,6 +3,7 @@ import { HomeworkAPI } from "@/utils/api/sdk/HomeworkAPI";
 import { SubjectAPI } from "@/utils/api/sdk/SubjectAPI";
 import { getSession } from "next-auth/react";
 import {UserSession} from "@/types/backend/user";
+import {Session} from "next-auth";
 
 export type FetchWithHeaders = <T>(
   URL: string,
@@ -33,13 +34,13 @@ class APIClient {
       method: string = "GET",
       body?: any,
     ) => {
-      const { accessToken } = server
+      let { user  } = server
         ? await getServerSessionWithOptions()
-        : await getSession() as unknown as UserSession;
+        : await getSession() as Session
       try {
         const response = await fetch(URL, {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${user.accessToken}`,
           },
           method,
           body,

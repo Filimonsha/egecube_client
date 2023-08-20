@@ -1,53 +1,20 @@
-import NextAuth, {AuthOptions, JWT, User} from "next-auth";
-import Credentials from "next-auth/providers/credentials";
-import {AuthResponse, UserSession} from "@/types/backend/user";
+import NextAuth, {AuthOptions, JWT} from "next-auth";
+import {credentialsProvider} from "@/auth/providers/credentialsProvider";
+
 export const authOptions: AuthOptions = {
-  providers: [
-    Credentials({
-      credentials: {
-        email: {label: 'email', type: 'email', required: true},
-        password: {label: 'password', type: 'password', required: true},
-      },
-
-      authorize: async function (credentials): Promise<UserSession | null> {
-        // login through back
-        if (typeof credentials !== "undefined") {
-          const res = await fetch("http://localhost:8080/api/users/tokens/refresh", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              userMail: credentials.email,
-              password: credentials.password,
-            }),
-          });
-
-          const response = await res.json() as AuthResponse;
-          if (!res.ok) return null
-
-          const session = {
-            ...response.userData as User,
-            accessToken: response.accessToken,
-            refreshToken: response.refreshToken
-          } as UserSession
-          console.log(session)
-          return session
-
-        } else {
-          return null;
-        }
-      }
-
-    }),
-  ],
+  providers: [ credentialsProvider, ],
   session: { strategy: "jwt" },
   callbacks: {
     // @ts-ignore
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (typeof user !== "undefined") {
         // user has just signed in so the user object is populated
         return user as unknown as JWT;
+      }
+      if (trigger === "update") {
+        console.log("token",token)
+        console.log("session",session)
+        return {...token, ...session }
       }
       return token;
     },
@@ -55,18 +22,18 @@ export const authOptions: AuthOptions = {
       session.user = Object.keys(token).reduce(
         (p, c) => {
           // strip unnecessary properties
-          if (c !== "iat" && c !== "exp" && c !== "jti" && c !== "apiToken") {
+          if (c !== "iat" && c !== "exp" && c !== "jti") {
             return {...p, [c]: token[c]};
-          } else {
-            return p;
-          }
+          } else return p
         },
         {},
       );
-
       return session;
     },
   },
+  pages: {
+    signIn: "/signin"
+  }
 };
 
 const handler = NextAuth(authOptions);

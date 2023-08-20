@@ -4,6 +4,7 @@ import React from "react";
 import StoreProvider from "@/redux/StoreProvider";
 import Header from "@/components/header/Header";
 import {NextSessionProvider} from "@/redux/NextSessionProvider";
+import JwtSessionProvider from "@/redux/JwtSessionProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,13 +13,16 @@ export const metadata = {
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
+
   return (
     <html lang="en">
       <body className={inter.className}>
         <StoreProvider>
           <NextSessionProvider>
-            <Header />
-            {children}
+            <JwtSessionProvider>
+              <Header />
+              {children}
+            </JwtSessionProvider>
           </NextSessionProvider>
         </StoreProvider>
       </body>
