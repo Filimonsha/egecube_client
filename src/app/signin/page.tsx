@@ -10,9 +10,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {signIn} from "next-auth/react";
-import {searchParamsToUrlQuery} from "next/dist/shared/lib/router/utils/querystring";
 import {useRouter, useSearchParams} from "next/navigation";
-
 
 const SignIn = () => {
   const router = useRouter()
@@ -81,7 +79,7 @@ const SignIn = () => {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="/register" variant="body2">
+                <Link href={"/register?" + searchParams} variant="body2">
                   {"Еще нет аккаунта? Зарегистрироваться"}
                 </Link>
               </Grid>

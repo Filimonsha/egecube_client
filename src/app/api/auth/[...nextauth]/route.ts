@@ -2,7 +2,7 @@ import NextAuth, {AuthOptions, JWT} from "next-auth";
 import {credentialsProvider} from "@/auth/providers/credentialsProvider";
 
 export const authOptions: AuthOptions = {
-  providers: [ credentialsProvider, ],
+  providers: [ credentialsProvider ],
   session: { strategy: "jwt" },
   callbacks: {
     // @ts-ignore
