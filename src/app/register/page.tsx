@@ -13,6 +13,12 @@ import {useRouter, useSearchParams} from "next/navigation";
 import {registerUser} from "@/auth/api/register";
 import {UserBase} from "@/types/backend/user";
 
+const textFields = [
+  {id: "firstName", label: "Имя", required: true},
+  {id: "lastName", label: "Фамилия", required: true},
+  {id: "phone", label: "Телефон", required: false}
+]
+
 
 const SignIn = () => {
   const router = useRouter()
@@ -22,7 +28,6 @@ const SignIn = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
     const regRes = await registerUser({
       firstName: data.get("firstName"),
       lastName: data.get("lastName"),
@@ -49,26 +54,18 @@ const SignIn = () => {
           Приветствую нового пользователя!
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal" required fullWidth
-            name="firstName" label="Имя" type="text"
-            id="firstName"
-          />
-          <TextField
-            margin="normal" required fullWidth
-            name="lastName" label="Фамилия" type="text"
-            id="lastName"
-          />
+          {textFields.map(field =>
+            <TextField
+              margin="normal" required={field.required} fullWidth
+              name={field.id} label={field.label} type="text"
+              id={field.id}
+            />
+          )}
           <TextField
             margin="normal" required fullWidth
             id="email" label="Электронная почта"
-            name="email" autoComplete="email"
+            name="email" autoComplete="email" type="email"
             autoFocus
-          />
-          <TextField
-            margin="normal" fullWidth
-            name="phone" label="Телефон" type="text"
-            id="phone"
           />
           <TextField
             margin="normal" required fullWidth

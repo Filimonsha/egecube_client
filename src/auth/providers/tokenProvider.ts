@@ -1,19 +1,20 @@
 import {AuthResponse, UserSession} from "@/types/backend/user";
+import {ACCESS_TOKEN_ENDPOINT} from "@/auth/consts/routes";
 
 export async function updateSession(session: UserSession | null, update: (session: UserSession) => void) {
   if (!session) return
-  console.log("rebuilding session with refresh token " + session.refreshToken)
+  console.log("Rebuilding session with refresh token " + session.refreshToken)
   const refreshToken = session.refreshToken
 
-  const authRes = await fetch("http://localhost:8080/api/users/tokens/access", {
+  const authRes = await fetch(ACCESS_TOKEN_ENDPOINT, {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${refreshToken}`
+      Authorization: `Bearer ${refreshToken}`
     },
   });
   if (!authRes.ok) return null
   const data = await authRes.json() as AuthResponse
-  console.log(data.accessToken)
+  console.log("Got new access token " + data.accessToken)
   update({
     ...session,
     accessToken: data.accessToken,

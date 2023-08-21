@@ -1,21 +1,19 @@
 import Credentials from "next-auth/providers/credentials";
 import {AuthResponse, UserSession} from "@/types/backend/user";
 import {User} from "next-auth";
-import {signIn} from "next-auth/react";
-
-
+import {REFRESH_TOKEN_ENDPOINT} from "@/auth/consts/routes";
 
 export const credentialsProvider = Credentials({
   name: "credentials",
   // TODO проставить тип, Вадим!!
-  credentials:<any> {
+  credentials: {
     email: {label: 'email', type: 'email', required: true},
     password: {label: 'password', type: 'password', required: true},
   },
   async authorize(credentials): Promise<UserSession | null> {
     // signing through back
     if (typeof credentials !== "undefined") {
-      const res = await fetch("http://localhost:8080/api/users/tokens/refresh", {
+      const res = await fetch(REFRESH_TOKEN_ENDPOINT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

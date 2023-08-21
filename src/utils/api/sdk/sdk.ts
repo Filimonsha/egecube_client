@@ -34,14 +34,14 @@ class APIClient {
       method: string = "GET",
       body?: any,
     ) => {
-      let { user  } = server
+      const { user } = server
         ? await getServerSessionWithOptions()
         : await getSession() as Session
 
       try {
         const response = await fetch(URL, {
           headers: {
-            Authorization: `Bearer ${user.accessToken}`,
+            Authorization: `Bearer ${(user! as UserSession).accessToken}`,
           },
           method,
           body,

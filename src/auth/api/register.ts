@@ -1,8 +1,9 @@
 import {UserBase} from "@/types/backend/user";
 import {signIn} from "next-auth/react";
+import {USER_ACCOUNTS_ENDPOINT} from "@/auth/consts/routes";
 
 export async function registerUser(userData: UserBase): Promise<boolean> {
-  const regRes = await fetch("http://localhost:8080/api/users/accounts", {
+  const regRes = await fetch(USER_ACCOUNTS_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -15,5 +16,5 @@ export async function registerUser(userData: UserBase): Promise<boolean> {
     email: userData.userMail,
     password: userData.password
   })
-  return signRes != undefined && signRes.ok;
+  return signRes !== undefined && signRes.ok;
 }
