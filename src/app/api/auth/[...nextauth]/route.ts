@@ -14,7 +14,7 @@ export const authOptions: AuthOptions = {
                 if (typeof credentials !== "undefined") {
 
                     console.log(credentials)
-                    const res = await fetch("http://localhost:8080/api/users/tokens", {
+                    const res = await fetch("http://localhost:8080/api/users/tokens/refresh", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -25,15 +25,16 @@ export const authOptions: AuthOptions = {
                         }),
                     })
 
-
                     const response = await res.json()
                     if (!res.ok) {
                         return null
                     }
+                    console.log(response.refreshToken,"refresh")
+
                     //TODO
                     const userRequest = await fetch(`http://localhost:8080/api/users/accounts/${1}`,
                         {
-                            headers: {Authentication: `Bearer ${response.token}`}
+                            headers: {Authentication: `Bearer ${response.accessToken}`}
                         }
                     )
                     console.log("a",response)
@@ -41,7 +42,7 @@ export const authOptions: AuthOptions = {
                     console.log("user", user)
                     if (userRequest.ok) {
 
-                        return {...user, apiToken: response.token}
+                        return {...user, apiToken: response.accessToken}
                     }
 
                     return null

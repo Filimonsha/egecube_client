@@ -11,7 +11,7 @@ import {
     ListItem, Slider, TextField,
     Typography
 } from "@mui/material";
-import HomeworkCreator from "@/app/homework/(modules)/homework-creator";
+import HomeworkCreator from "@/app/homework/(modules)/homework-creator/HomeworkCreator";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {LocalizationProvider} from "@mui/x-date-pickers";
 

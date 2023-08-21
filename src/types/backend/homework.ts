@@ -1,10 +1,10 @@
 export interface IHomeworkRequest {
     title: string;
     subjectId: number;
-    creatorId: string;
+    creatorId: number;
     description: string;
     deadline: string;
-    solvers?: (number)[] | null;
+    solversIds?: (number)[] | null;
 }
 
 export interface IHomework extends IHomeworkRequest {
