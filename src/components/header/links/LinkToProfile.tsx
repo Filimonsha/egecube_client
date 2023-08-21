@@ -6,12 +6,12 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { LOGIN_ROUTE, MAIN_ROUTE, PROFILE_ROUTE } from "@/const/routes";
 import { useAppSelector } from "@/hooks/hooks";
-import {selectUserState} from "@/redux/selector/selectors";
+import { selectUserState } from "@/redux/selector/selectors";
 
 const LinkToProfile = () => {
   const pathname = usePathname();
 
-  const { userCredentials } = useAppSelector((state) => selectUserState(state));
+  const { userCredentials } = useAppSelector(state => selectUserState(state));
 
   return (
     <div className={styles.headerElement}>

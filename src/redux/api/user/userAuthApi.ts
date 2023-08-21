@@ -2,9 +2,9 @@ import baseBackendApi from "@/redux/api/baseQuery";
 import { UserCredentials } from "@/types/backend/user";
 
 const userAuthApi = baseBackendApi.injectEndpoints({
-  endpoints: (build) => ({
+  endpoints: build => ({
     authorizeUser: build.mutation<void, UserCredentials>({
-      query: (userCreds) => ({
+      query: userCreds => ({
         url: "/users/tokens",
         method: "POST",
         body: userCreds,

@@ -7,7 +7,7 @@ const layoutElements = [<TextHeading text={"Регистрация"} />, <Regist
 const RegisterPage = () => {
   return (
     <div className={styles.page}>
-      {layoutElements.map((element) => (
+      {layoutElements.map(element => (
         <div className={styles.pageElementRow}>{element}</div>
       ))}
     </div>

@@ -1,25 +1,25 @@
 .formContainer {
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*align-items: center;*/
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*align-items: center;*/
 }
 
 .formContent {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .formElementContainer {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .formElementItem {
-    margin: 4px;
-    font-size: 15px;
+  margin: 4px;
+  font-size: 15px;
 }
 
 #reg {
-    margin-top: 20px;
+  margin-top: 20px;
 }

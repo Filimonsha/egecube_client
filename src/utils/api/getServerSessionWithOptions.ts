@@ -1,6 +1,7 @@
-import {getServerSession} from "next-auth/next";
-import {authOptions} from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-const getServerSessionWithOptions = async () => await getServerSession(authOptions)
+const getServerSessionWithOptions = async () =>
+  await getServerSession(authOptions);
 
-export default getServerSessionWithOptions
+export default getServerSessionWithOptions;

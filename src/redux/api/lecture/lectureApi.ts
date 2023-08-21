@@ -1,10 +1,10 @@
 import baseBackendApi from "@/redux/api/baseQuery";
-import {Lecture} from "@/types/backend/lecture";
+import { Lecture } from "@/types/backend/lecture";
 
 const lectureApi = baseBackendApi.injectEndpoints({
-  endpoints: (build) => ({
+  endpoints: build => ({
     getAvailableLecturesByListenerId: build.query<Array<Lecture>, number>({
-      query: (listenerId) =>
+      query: listenerId =>
         `lectures-management/listeners/${listenerId}/lectures`,
     }),
   }),

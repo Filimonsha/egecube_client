@@ -3,7 +3,12 @@
 import styles from "./sidebar.module.css";
 import Menu from "@/components/sidebar/menu/Menu";
 import { usePathname } from "next/navigation";
-import {PROFILE_HOMEWORK_ROUTE, PROFILE_MATERIALS_ROUTE, PROFILE_ROUTE, PROFILE_SCHEDULE_ROUTE} from "@/const/routes";
+import {
+  PROFILE_HOMEWORK_ROUTE,
+  PROFILE_MATERIALS_ROUTE,
+  PROFILE_ROUTE,
+  PROFILE_SCHEDULE_ROUTE,
+} from "@/const/routes";
 
 const paths = [
   PROFILE_ROUTE,

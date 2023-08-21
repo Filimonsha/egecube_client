@@ -29,8 +29,8 @@ class APIClient {
 
         const fetchCallback: FetchWithHeaders = async (URL: string, method: string = "GET", body?: any) => {
 
-            const {apiToken} = server ? await getServerSessionWithOptions() : await getSession()
-            console.log(body,'ds')
+            const session = server ? await getServerSessionWithOptions() : await getSession()
+            console.log(session,'ds')
             try {
                 const response = await fetch(URL, {
                     headers: {
