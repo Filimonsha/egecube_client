@@ -1,3 +1,5 @@
+import {JWT, User} from "next-auth";
+
 export enum USER_ROLE {
   User = "USER",
   Admin = "ADMIN",
@@ -5,7 +7,7 @@ export enum USER_ROLE {
   Mentor = "MENTOR",
 }
 
-export type User = {
+export type ApplicationUser = {
   userId: number;
   userMail: string;
   userPhone: string;
@@ -14,6 +16,14 @@ export type User = {
   accountSuspended: boolean;
   userRole: USER_ROLE;
 };
+
+export type AuthResponse = {
+  accessToken: string,
+  refreshToken: string,
+  userData: ApplicationUser | null
+}
+
+export type UserSession = User & JWT
 
 export type UserBase = {
   userMail: string;

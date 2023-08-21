@@ -1,7 +1,18 @@
 import StandingCat from "@/components/funnyJokes/StandingCat";
+import {UserSession} from "@/types/backend/user";
+import getServerSessionWithOptions from "@/utils/api/getServerSessionWithOptions";
 
-const ProfilePage = () => {
-  return <StandingCat />;
+const ProfilePage = async () => {
+  const session  = await getServerSessionWithOptions()
+  const user = session.user as UserSession
+  console.log(session.user)
+  return (
+    <>
+      <StandingCat/>
+      This is a picture of {user.userMail} in real life, logged in
+      <p>His access token is {user.accessToken}</p>
+    </>
+  );
 };
 
 export default ProfilePage;

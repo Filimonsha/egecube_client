@@ -1,12 +1,12 @@
-import { User, UserBase } from "@/types/backend/user";
+import { ApplicationUser, UserBase } from "@/types/backend/user";
 import baseBackendApi from "@/redux/api/baseQuery";
 
 const userAccountApi = baseBackendApi.injectEndpoints({
   endpoints: build => ({
-    getUserById: build.query<User, number>({
+    getUserById: build.query<ApplicationUser, number>({
       query: userId => `users/accounts/${userId}`,
     }),
-    getUserByEmail: build.query<User, string>({
+    getUserByEmail: build.query<ApplicationUser, string>({
       query: userEmail => `users/accounts?name=${userEmail}`,
     }),
     createUser: build.mutation<number, UserBase>({

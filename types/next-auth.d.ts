@@ -1,4 +1,4 @@
-import NextAuth, { DefaultSession } from "next-auth"
+import {ApplicationUser} from "@/types/backend/user";
 
 declare module "next-auth" {
   interface User {
@@ -11,12 +11,8 @@ declare module "next-auth" {
     userRole: string
   }
 
-  interface Session {
-    user: User
-    apiToken: string
-  }
-
   interface JWT {
-    apiToken: string
+    accessToken: string,
+    refreshToken: string
   }
 }
