@@ -4,6 +4,7 @@ import { SubjectAPI } from "@/utils/api/sdk/SubjectAPI";
 import { getSession } from "next-auth/react";
 import {UserSession} from "@/types/backend/user";
 import {Session} from "next-auth";
+import {SimpleTaskAPI} from "@/utils/api/sdk/SimpleTaskAPI";
 
 export type FetchWithHeaders = <T>(
   URL: string,
@@ -18,13 +19,15 @@ export interface IAPI {
 }
 
 class APIClient {
-  private homeworkAPI = new HomeworkAPI();
-  private subjectAPI = new SubjectAPI();
+  private homeworkAPI = new HomeworkAPI()
+  private subjectAPI = new SubjectAPI()
+  private simpleTaskAPI = new SimpleTaskAPI()
 
   callApiWithSession(server: boolean = true) {
     return {
       homeworkService: this.homeworkAPI.getService(this.fetchWithHeaders(server)),
       subjectService: this.subjectAPI.getService(this.fetchWithHeaders(server)),
+      simpleTaskService: this.simpleTaskAPI.getService(this.fetchWithHeaders(server))
     };
   }
 
@@ -34,14 +37,16 @@ class APIClient {
       method: string = "GET",
       body?: any,
     ) => {
-      let { user  } = server
+      const { user } = server
         ? await getServerSessionWithOptions()
         : await getSession() as Session
+
+      console.log("Requesting resource with token " + (user! as UserSession).accessToken)
 
       try {
         const response = await fetch(URL, {
           headers: {
-            Authorization: `Bearer ${user.accessToken}`,
+            Authorization: `Bearer ${(user! as UserSession).accessToken}`,
           },
           method,
           body,

@@ -1,12 +1,10 @@
-"use client";
+"use client"
 
 import React, {useEffect} from "react";
 import {useSession} from "next-auth/react";
 import {updateSession} from "@/auth/providers/tokenProvider";
 import {UserSession} from "@/types/backend/user";
-
-const accessTokenTimeout = 10 * 60 * 1000
-const refreshTime = 60 * 1000
+import {ACCESS_TOKEN_TIMEOUT, REFRESH_TIME} from "@/auth/consts/tokens";
 
 const JwtSessionProvider = ({ children }: { children: React.ReactNode }) => {
   const {data, update} = useSession()
@@ -14,7 +12,7 @@ const JwtSessionProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     setTimeout(() => {
       updateSession(data?.user as UserSession | null, update)
-    }, accessTokenTimeout - refreshTime)
+    }, ACCESS_TOKEN_TIMEOUT - REFRESH_TIME)
   })
   return <>{children}</>
 }
