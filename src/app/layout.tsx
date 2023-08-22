@@ -1,10 +1,11 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import React from "react";
-import StoreProvider from "@/redux/StoreProvider";
+import StoreProvider from "@/providers/StoreProvider";
 import Header from "@/components/header/Header";
-import {NextSessionProvider} from "@/redux/NextSessionProvider";
-import JwtSessionProvider from "@/redux/JwtSessionProvider";
+import {NextSessionProvider} from "@/providers/NextSessionProvider";
+import JwtSessionProvider from "@/providers/JwtSessionProvider";
+import AppThemeProvider from "@/providers/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,8 +21,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <StoreProvider>
           <NextSessionProvider>
             <JwtSessionProvider>
-              <Header />
-              {children}
+              <AppThemeProvider>
+                <Header />
+                {children}
+              </AppThemeProvider>
             </JwtSessionProvider>
           </NextSessionProvider>
         </StoreProvider>
