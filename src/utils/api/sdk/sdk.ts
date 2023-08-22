@@ -1,5 +1,5 @@
 import getServerSessionWithOptions from "@/utils/api/getServerSessionWithOptions";
-import { HomeworkAPI } from "@/utils/api/sdk/HomeworkAPI";
+import { HomeworkServiceAPI } from "@/utils/api/sdk/HomeworkServiceAPI";
 import { SubjectAPI } from "@/utils/api/sdk/SubjectAPI";
 import { getSession } from "next-auth/react";
 import {UserSession} from "@/types/backend/user";
@@ -18,7 +18,7 @@ export interface IAPI {
 }
 
 class APIClient {
-  private homeworkAPI = new HomeworkAPI();
+  private homeworkAPI = new HomeworkServiceAPI();
   private subjectAPI = new SubjectAPI();
 
   callApiWithSession(server: boolean = true) {

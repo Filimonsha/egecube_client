@@ -1,4 +1,4 @@
-import {ETaskType} from "@/types/backend/homework";
+import {ETaskType} from "@/types/backend/homework-management/homework";
 
 export const getParsedTaskType = (taskType:ETaskType) => {
     switch (taskType) {

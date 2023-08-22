@@ -21,7 +21,7 @@ import React, {useState} from "react";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {ICourse} from "@/types/backend/subject";
-import {ITask} from "@/types/backend/homework";
+import {ITaskRequest} from "@/types/backend/homework-management/homework";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import TaskCreator from "@/app/homework/(modules)/homework-creator/task-creator/TaskCreator";
 import TaskList from "@/app/homework/(modules)/homework-creator/components/TaskList";
@@ -56,7 +56,7 @@ const HomeworkCreator = ({courses}: IHomeworkCreatorProps) => {
     const [taskModalOpen, setTaskModalOpen] = useState(false);
     const [coursesModalOpen, setCoursesModalOpen] = useState(false)
     const [createNewTask, setCreateNewTask] = useState(false)
-    const [tasks, setTasks] = useState<Array<ITask>>([])
+    const [tasks, setTasks] = useState<Array<ITaskRequest>>([])
 
     const handleOpenCoursesModal = () => setCoursesModalOpen(true);
 
@@ -76,12 +76,11 @@ const HomeworkCreator = ({courses}: IHomeworkCreatorProps) => {
             newChecked.splice(currentIndex, 1);
         }
 
-        console.log(newChecked, courses)
         setCoursesChecked(newChecked);
     };
 
-    const handleSaveTask = (task: ITask) => {
-        const newTasks: Array<ITask> = [...tasks, {...task, priority: tasks.length + 1}]
+    const handleSaveTask = (task: ITaskRequest) => {
+        const newTasks: Array<ITaskRequest> = [...tasks, {...task, priority: tasks.length + 1}]
         setTasks(newTasks)
         setTaskModalOpen(false)
     }
@@ -108,7 +107,6 @@ const HomeworkCreator = ({courses}: IHomeworkCreatorProps) => {
                 apiClient.callApiWithSession(false).homeworkService.addTasksToHomework(res._id,tasks).then(res =>console.log(res))
 
             })
-            console.log(tasks)
         }
         //TODO
 

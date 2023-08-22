@@ -33,7 +33,6 @@ export const credentialsProvider = Credentials({
         accessToken: response.accessToken,
         refreshToken: response.refreshToken
       } as UserSession
-      console.log(session)
 
       return session
     } else {

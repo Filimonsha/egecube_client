@@ -1,10 +1,10 @@
 import React from 'react';
 import {Stack} from "@mui/material";
-import {ITask} from "@/types/backend/homework";
+import {ITaskRequest} from "@/types/backend/homework-management/homework";
 import Task from "@/app/homework/(components)/Task";
 
 interface ITaskListProps {
-    tasks: Array<ITask>
+    tasks: Array<ITaskRequest>
 }
 
 const TaskList = ({tasks}: ITaskListProps) => {

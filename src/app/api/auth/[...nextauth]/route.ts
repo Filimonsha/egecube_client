@@ -11,8 +11,6 @@ export const authOptions: AuthOptions = {
         return user as unknown as JWT;
       }
       if (trigger === "update") {
-        console.log("token",token)
-        console.log("session",session)
         return {...token, ...session }
       }
       return token;

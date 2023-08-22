@@ -1,5 +1,5 @@
-import {ETaskType, IAnswerVariant} from "@/types/backend/homework";
-import React, {useState} from "react";
+import { ETaskType, IAnswerVariant } from "@/types/backend/homework-management/homework";
+import React, { useState } from "react";
 import {
     Button,
     ButtonGroup,
@@ -27,32 +27,35 @@ interface IAnswerVariantsProps {
 
 }
 
-
 const AnswerVariantsCreator = ({
-                                   rightAnswer, setRightAnswer,
-                                   variants, setVariants,
+                                   rightAnswer,
+                                   setRightAnswer,
+                                   variants,
+                                   setVariants,
                                    answerType
                                }: IAnswerVariantsProps) => {
-    const [newVariantValue, setNewVariantValue] = useState("")
-
+    const [newVariantValue, setNewVariantValue] = useState("");
 
     function handleChangeValue(value) {
-        setNewVariantValue(value.target.value)
+        setNewVariantValue(value.target.value);
     }
 
     function handleAddNewVariant() {
-        const newVariants: Array<IAnswerVariant> = [...variants, {order: variants.length + 1, answer: newVariantValue}]
-        setVariants(newVariants)
-        handleRemoveNewVariant()
+        const newVariants: Array<IAnswerVariant> = [...variants, {
+            order: variants.length + 1,
+            answer: newVariantValue
+        }];
+        setVariants(newVariants);
+        handleRemoveNewVariant();
     }
 
     function handleRemoveNewVariant() {
-        setNewVariantValue("")
+        setNewVariantValue("");
     }
 
     function handleRemoveVariant(order: number) {
-        const newVariants: Array<IAnswerVariant> = variants.filter(variant => variant.order !== order)
-        setVariants(newVariants)
+        const newVariants: Array<IAnswerVariant> = variants.filter(variant => variant.order !== order);
+        setVariants(newVariants);
     }
 
     return (
@@ -67,9 +70,9 @@ const AnswerVariantsCreator = ({
                     <InputLabel>Вариант ответа {variants.length + 1}</InputLabel>
 
                     <Stack direction="row" justifyContent="center" alignItems="center">
-                        <TextField value={newVariantValue} onChange={handleChangeValue}/>
+                        <TextField value={newVariantValue} onChange={handleChangeValue} />
                         <ButtonGroup
-                            sx={{height: '100%'}}
+                            sx={{ height: "100%" }}
                             disableElevation
                             variant="contained"
                             aria-label="Disabled elevation buttons"
@@ -82,12 +85,13 @@ const AnswerVariantsCreator = ({
                 </Stack>
             </Grid2>
             <Grid2>
-                <TaskVariants isEditable variants={variants} answerType={answerType}
-                              handleRemoveVariant={handleRemoveVariant} setRightAnswer={setRightAnswer}/>
+                <TaskVariants variants={variants} answerType={answerType}
+                              handleRemoveVariant={handleRemoveVariant} setRightAnswer={setRightAnswer}
+                              isForCreating={{ isEditable: true }} />
             </Grid2>
 
         </>
         // </Grid2>
-    )
-}
-export default AnswerVariantsCreator
+    );
+};
+export default AnswerVariantsCreator;

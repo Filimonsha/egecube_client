@@ -5,7 +5,7 @@ import getServerSessionWithOptions from "@/utils/api/getServerSessionWithOptions
 const ProfilePage = async () => {
   const session  = await getServerSessionWithOptions()
   const user = session.user as UserSession
-  console.log(session.user)
+
   return (
     <>
       <StandingCat/>

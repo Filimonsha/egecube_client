@@ -1,4 +1,4 @@
-import {ETaskType, IAnswerVariant, ITask, TaskRightAnswer} from "@/types/backend/homework";
+import {ETaskType, IAnswerVariant, ITaskRequest, TaskRightAnswer} from "@/types/backend/homework-management/homework";
 import React, {useEffect, useState} from "react";
 import {Button, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography} from "@mui/material";
 import AnswerVariantsCreator from "@/app/homework/(modules)/homework-creator/task-creator/answer-variants/AnswerVariantsCreator";
@@ -6,7 +6,7 @@ import Grid2 from "@mui/material/Unstable_Grid2";
 import {getParsedTaskType} from "@/app/homework/(modules)/homework-creator/utils";
 
 interface ITaskCreatorProps {
-    handleSaveTask: (task: ITask) => void,
+    handleSaveTask: (task: ITaskRequest) => void,
     handleCanselCreatingTask: () => void,
 }
 
@@ -19,14 +19,13 @@ const TaskCreator = ({handleSaveTask, handleCanselCreatingTask}: ITaskCreatorPro
     const [taskVariants, setTaskVariants] = useState<Array<IAnswerVariant>>([])
 
     function handleChange(value) {
-        console.log(ETaskType[value.target.value])
         setTaskVariants([])
         setTaskType(ETaskType[value.target.value])
     }
 
     //TODO
     function handleClickSaveBtn() {
-        const newTask: ITask = {
+        const newTask: ITaskRequest = {
             title: taskName,
             description: taskDescription,
             priority: 0,
