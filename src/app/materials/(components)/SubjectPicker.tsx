@@ -14,10 +14,16 @@ const SubjectPicker = ({ subjectId, setSubjectId }: SubjectPickerI) => {
       onChange={(event: any, newValue: string | null) => {
         setSubjectId(subjects.find((el) => {return el.label === newValue})?.id!);
       }}
-      id="controllable-states-demo"
       options={subjects.map((el) => {return el.label})}
       sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params}/>}
+      renderOption={(props, option) => {
+        return (
+          <li {...props} key={option}>
+            {option}
+          </li>
+        );
+      }}
+      renderInput={(params) => <TextField key={params.id} {...params} />}
       disableClearable
     />
   );

@@ -1,20 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import apiClient from "@/utils/api/sdk/sdk";
 import { USER_ROLE } from "@/types/backend/user";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Button,
-  Container,
   List,
   ListItem,
-  Slider,
-  TextField,
   Typography,
 } from "@mui/material";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers";
 import HomeworkCreator from "@/app/homework/(modules)/homework-creator/HomeworkCreator";
 
 interface IListOfAllHomeworkProps {

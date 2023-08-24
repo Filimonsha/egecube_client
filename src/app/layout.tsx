@@ -5,7 +5,6 @@ import StoreProvider from "@/providers/StoreProvider";
 import Header from "@/components/header/Header";
 import {NextSessionProvider} from "@/providers/NextSessionProvider";
 import JwtSessionProvider from "@/providers/JwtSessionProvider";
-import AppThemeProvider from "@/providers/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,10 +20,8 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <StoreProvider>
           <NextSessionProvider>
             <JwtSessionProvider>
-              <AppThemeProvider>
                 <Header />
                 {children}
-              </AppThemeProvider>
             </JwtSessionProvider>
           </NextSessionProvider>
         </StoreProvider>

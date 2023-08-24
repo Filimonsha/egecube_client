@@ -12,8 +12,8 @@ const JwtSessionProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     setTimeout(() => {
       updateSession(data?.user as UserSession | null, update)
-    }, ACCESS_TOKEN_TIMEOUT - REFRESH_TIME)
-  })
+      }, ACCESS_TOKEN_TIMEOUT - REFRESH_TIME)
+  }, [data?.user])
   return <>{children}</>
 }
 

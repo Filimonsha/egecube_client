@@ -2,45 +2,34 @@
 
 import React, {useMemo, useState} from 'react';
 import apiClient from "@/utils/api/sdk/sdk";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  List,
-  Typography
-} from "@mui/material";
-import {subjects} from "@/const/subjects";
 import SubjectPicker from "@/app/materials/(components)/SubjectPicker";
-import AddTask from "@/app/materials/(modules)/AddTask";
+import TaskCreator from "@/app/materials/(modules)/task-creator/TaskCreator";
+import {SimpleTask, SimpleTaskDto} from "@/types/backend/simpletask";
+import SimpleTaskList from "@/app/materials/(components)/SimpleTaskList";
 
 const Materials = () => {
   const [subjectId, setSubjectId] = useState(1)
   const [showCount, setShowCount] = useState(10)
+  const [loadedTasks, setLoadedTasks] = useState<Array<SimpleTaskDto>>()
 
-  const tasks = useMemo(() => { return apiClient
-    .callApiWithSession().simpleTaskService.getNumberOfSubjectTasks(subjectId, showCount)
-  }, [subjectId, showCount])
+  useMemo(() =>
+    apiClient
+      .callApiWithSession(false).simpleTaskService.getNumberOfSubjectTasks(subjectId, showCount)
+      .then(tasks => setLoadedTasks(tasks))
+  , [subjectId, showCount])
 
+  const addTaskToRepository = (data: SimpleTask) => {
+    // TODO
+    apiClient.callApiWithSession().simpleTaskService
+      .addTaskToRepository(data)
+  }
 
   return (
     <div>
-      <AddTask/>
+      <TaskCreator onSubmit={addTaskToRepository}/>
 
       <SubjectPicker subjectId={subjectId} setSubjectId={setSubjectId}/>
-
-      <Accordion>
-        <AccordionSummary>
-          <Typography>
-            Задания по предмету: {subjects.find((el) => {return el.id === subjectId})?.label}
-          </Typography>
-        </AccordionSummary>
-
-        <AccordionDetails>
-          <List>
-            Empty List
-          </List>
-        </AccordionDetails>
-      </Accordion>
+      <SimpleTaskList subjectId={subjectId} loadedTasks={loadedTasks}/>
     </div>
   )
 }
