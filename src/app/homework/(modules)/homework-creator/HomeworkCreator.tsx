@@ -27,7 +27,7 @@ import TaskCreator from "@/app/homework/(modules)/homework-creator/task-creator/
 import TaskList from "@/app/homework/(modules)/homework-creator/components/TaskList";
 import apiClient from "@/utils/api/sdk/sdk";
 import {getSession} from "next-auth/react";
-import course from "@/types/backend/course";
+import {UserSession} from "@/types/backend/user";
 
 interface IHomeworkCreatorProps {
     courses: Array<ICourse>
@@ -98,10 +98,10 @@ const HomeworkCreator = ({courses}: IHomeworkCreatorProps) => {
                 title,
                 description,
                 deadline,
-                creatorId: session.user.userId,
+                creatorId: ((session.user) as UserSession).userId,
                 subjectId: 1,
                 //TODO
-                solversIds: courses.find(course => coursesChecked.includes(course.id)).participants
+                solversIds: courses.find(course => coursesChecked.includes(course.id))!.participants
                     // courses.map(course => coursesChecked.includes(course.id) && course.participants.toString()).join(",").split(",").map( id =>Number.parseInt(id))
             }).then(res => {
                 res?._id &&
@@ -146,7 +146,7 @@ const HomeworkCreator = ({courses}: IHomeworkCreatorProps) => {
                                 <Slider sx={{maxWidth: '50%'}} style={{
                                     color: difficult === 1 ? "#6FD86B" : difficult === 2 ? "#FFB800" : "#FF5858",
                                 }} min={1} max={3} step={1} value={difficult}
-                                        onChange={value => setDifficult(value.target.value)}/>
+                                        onChange={value => setDifficult(parseInt((value.target as HTMLTextAreaElement).value))}/>
 
                             </Stack>
                         </Grid2>
@@ -157,7 +157,7 @@ const HomeworkCreator = ({courses}: IHomeworkCreatorProps) => {
                                     sx={{width: "100%"}}
                                     ampm={false}
                                     value={deadline}
-                                    onChange={(newValue) => setDeadline(newValue)}
+                                    onChange={(newValue) => setDeadline(newValue!)}
                                 />
                             </Box>
 
@@ -203,7 +203,7 @@ const HomeworkCreator = ({courses}: IHomeworkCreatorProps) => {
             <div>
                 <Modal
                     open={taskModalOpen}
-                    onClose={handleCloseCoursesModal}
+                    onClose={handleCloseTaskModal}
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                 >

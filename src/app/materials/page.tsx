@@ -3,7 +3,7 @@
 import React, {useMemo, useState} from 'react';
 import apiClient from "@/utils/api/sdk/sdk";
 import SubjectPicker from "@/app/materials/(components)/SubjectPicker";
-import TaskCreator from "@/app/materials/(modules)/task-creator/TaskCreator";
+import SimpleTaskCreator from "@/app/materials/(modules)/task-creator/SimpleTaskCreator";
 import {SimpleTask, SimpleTaskDto} from "@/types/backend/simpletask";
 import SimpleTaskList from "@/app/materials/(components)/SimpleTaskList";
 
@@ -19,15 +19,15 @@ const Materials = () => {
   , [subjectId, showCount])
 
   const addTaskToRepository = (data: SimpleTask) => {
-    // TODO
-    apiClient.callApiWithSession().simpleTaskService
+    apiClient.callApiWithSession(false).simpleTaskService
       .addTaskToRepository(data)
   }
 
   return (
     <div>
-      <TaskCreator onSubmit={addTaskToRepository}/>
+      <SimpleTaskCreator onSubmit={addTaskToRepository}/>
 
+      <br/><br/>
       <SubjectPicker subjectId={subjectId} setSubjectId={setSubjectId}/>
       <SimpleTaskList subjectId={subjectId} loadedTasks={loadedTasks}/>
     </div>

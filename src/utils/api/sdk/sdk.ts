@@ -35,7 +35,7 @@ class APIClient {
     const fetchCallback: FetchWithHeaders = async (
       url: string,
       method: string = "GET",
-      body?: any,
+      body?: string,
     ) => {
       const currentSession = server
         ? await getServerSessionWithOptions()
@@ -51,12 +51,14 @@ class APIClient {
 
       // Processing the fetch itself
       try {
+        console.log(body)
         const response = await fetch(url, {
           headers: {
             Authorization: `Bearer ${(user! as UserSession).accessToken}`,
+            "Content-Type": "application/json"
           },
           method,
-          body,
+          body: JSON.stringify(body),
         });
         return await response.json();
       } catch (e) {

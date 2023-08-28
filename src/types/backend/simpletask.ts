@@ -1,5 +1,6 @@
 export type SimpleTask = {
   subjectId: number,
+  taskNum: number,
   desc: string,
   answers: Array<string>,
   rightAnswer: string

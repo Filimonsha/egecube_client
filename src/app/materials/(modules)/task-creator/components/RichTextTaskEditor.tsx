@@ -12,7 +12,7 @@ const AddTask = ({onChange}: AddTaskI) => {
   return (
     <ReactQuill
       style={{
-        margin: 10
+        maxWidth: "98vw"
       }}
       theme={"snow"}
       onChange={onChange}

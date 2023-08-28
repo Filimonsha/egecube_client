@@ -1,5 +1,5 @@
 import {ETaskType, IAnswerVariant, ITask, TaskRightAnswer} from "@/types/backend/homework";
-import React, {useEffect, useState} from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import {Button, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography} from "@mui/material";
 import AnswerVariantsCreator from "@/app/homework/(modules)/homework-creator/task-creator/answer-variants/AnswerVariantsCreator";
 import Grid2 from "@mui/material/Unstable_Grid2";
@@ -18,9 +18,9 @@ const TaskCreator = ({handleSaveTask, handleCanselCreatingTask}: ITaskCreatorPro
     const [rightAnswer, setRightAnswer] = useState<TaskRightAnswer>()
     const [taskVariants, setTaskVariants] = useState<Array<IAnswerVariant>>([])
 
-    function handleChange(value) {
-        console.log(ETaskType[value.target.value])
+    function handleChange(value: FormEvent) {
         setTaskVariants([])
+        // @ts-ignore
         setTaskType(ETaskType[value.target.value])
     }
 
@@ -40,8 +40,8 @@ const TaskCreator = ({handleSaveTask, handleCanselCreatingTask}: ITaskCreatorPro
         handleCancel()
     }
 
-    function handleChangeTextRightAnswer(value) {
-        setRightAnswer(value.target.value)
+    function handleChangeTextRightAnswer(value: FormEvent) {
+        setRightAnswer((value.target as HTMLTextAreaElement).value)
     }
 
     function handleCancel() {

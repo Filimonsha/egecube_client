@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react';
 import {Autocomplete, TextField} from "@mui/material";
 import {subjects} from "@/const/subjects";
@@ -15,7 +17,7 @@ const SubjectPicker = ({ subjectId, setSubjectId }: SubjectPickerI) => {
         setSubjectId(subjects.find((el) => {return el.label === newValue})?.id!);
       }}
       options={subjects.map((el) => {return el.label})}
-      sx={{ width: 300 }}
+      sx={{ width: 200 }}
       renderOption={(props, option) => {
         return (
           <li {...props} key={option}>
@@ -23,7 +25,7 @@ const SubjectPicker = ({ subjectId, setSubjectId }: SubjectPickerI) => {
           </li>
         );
       }}
-      renderInput={(params) => <TextField key={params.id} {...params} />}
+      renderInput={(params) => <TextField {...params} label={"Предмет"}/>}
       disableClearable
     />
   );
